@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         weight = findViewById(R.id.weight);
         btn = findViewById(R.id.btn_next);
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             data = DBHelper.getInstance(getApplicationContext()).getUsers();
         }
         final ArrayAdapter<Users> adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, data);
@@ -39,12 +39,12 @@ public class LoginActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                   Users user = new Users(Integer.parseInt(times.getText().toString()),
-                            Integer.parseInt(height.getText().toString()),
-                            Integer.parseInt(weight.getText().toString()));
-                    DBHelper.getInstance(getApplicationContext()).addUsers(user);
-                    data.add(user);
-                    adapter.notifyDataSetChanged();
+                Users user = new Users(Integer.parseInt(times.getText().toString()),
+                        Integer.parseInt(height.getText().toString()),
+                        Integer.parseInt(weight.getText().toString()));
+                DBHelper.getInstance(getApplicationContext()).addUsers(user);
+                data.add(user);
+                adapter.notifyDataSetChanged();
             }
         });
 
