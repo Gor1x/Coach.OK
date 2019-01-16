@@ -31,6 +31,9 @@ public class LoginActivity extends AppCompatActivity {
         weight = findViewById(R.id.weight);
         btn = findViewById(R.id.btn_next);
 
+        if(savedInstanceState == null) {
+            data = DBHelper.getInstance(getApplicationContext()).getUsers();
+        }
         final ArrayAdapter<Users> adapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1, data);
 
         btn.setOnClickListener(new View.OnClickListener() {
