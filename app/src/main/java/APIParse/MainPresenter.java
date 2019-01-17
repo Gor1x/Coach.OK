@@ -19,25 +19,21 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     public void info(){
         getViewState().load();
 
-        Log.d("My tag", "help");
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://wger.de")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         API api = retrofit.create(API.class);
-        Log.d("My tag", "help");
+
         Call<ExerciseList> call = api.getPost();
         call.enqueue(new Callback<ExerciseList>() {
             @Override
             public void onResponse(Call<ExerciseList> call, Response<ExerciseList> response) {
-                if(!response.isSuccessful()) {
-                    Log.d("My tag", String.valueOf(response.code()));
-                }
+
                 ExerciseList exerciseLists = response.body();
                 String content = "";
-                Log.d("My tag", "help");
-
 
                 content += "count" + exerciseLists.getResults().get(0) + "\n";
                 content += "Next "+ exerciseLists.getNext() + "\n";
