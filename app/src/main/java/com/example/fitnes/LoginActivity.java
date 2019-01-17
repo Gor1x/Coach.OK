@@ -11,6 +11,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import UserStatsDatabase.DBHelper;
+import UserStatsDatabase.Users;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Button btn;

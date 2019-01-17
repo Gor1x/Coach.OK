@@ -9,24 +9,24 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class DayChoosing extends AppCompatActivity implements ExercisesAdapter.ListItemClickListener{
+public class TrainingChoosing extends AppCompatActivity implements TrainingAdapter.ListItemClickListener{
 
     private RecyclerView list;
-    public ArrayList<Exercise> exerciseList = new ArrayList<>();
-    private String[] names = new String[]{"Shoulders", "Legs", "Body"};
+    public ArrayList<Training> exerciseList = new ArrayList<>();
+    private String[] names = new String[]{"Shoulders", "Legs", "Body", "Fourth", "Fifth", "Sixth", "Seventh"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_choosing);
         for (String v: names){
-            exerciseList.add(new Exercise(v));
+            exerciseList.add(new Training(v));
         }
         list = findViewById(R.id.list);
 
 
         list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        ExercisesAdapter adapter = new ExercisesAdapter(exerciseList, this);
+        TrainingAdapter adapter = new TrainingAdapter(exerciseList, this);
         list.setAdapter(adapter);
 
     }

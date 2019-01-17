@@ -1,4 +1,4 @@
-package com.example.fitnes;
+package UserStatsDatabase;
 
 import android.content.ContentValues;
 import android.content.Context;
