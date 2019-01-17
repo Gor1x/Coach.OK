@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.example.fitnes.Exercise;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainPresenter extends MvpPresenter<IMainView> {
 
 
-    public void info(){
+    public void info() {
         getViewState().load();
 
 
@@ -27,28 +30,29 @@ public class MainPresenter extends MvpPresenter<IMainView> {
 
         API api = retrofit.create(API.class);
 
-        Call<ExerciseList> call = api.getPost();
-        call.enqueue(new Callback<ExerciseList>() {
-            @Override
-            public void onResponse(Call<ExerciseList> call, Response<ExerciseList> response) {
 
-                ExerciseList exerciseLists = response.body();
-                String content = "";
+        final ArrayList<APIParse.Exercise> arrayList = new ArrayList<>();
 
-                content += "count" + exerciseLists.getResults().get(0) + "\n";
-                content += "Next "+ exerciseLists.getNext() + "\n";
+        for (int i = 1; i < 28; i++) {
+            Call<ExerciseList> call = api.getPost(i, "json");
+            call.enqueue(new Callback<ExerciseList>() {
+                @Override
+                public void onResponse(Call<ExerciseList> call, Response<ExerciseList> response) {
 
-                getViewState().ok(content);
-            }
-
-            @Override
-            public void onFailure(Call<ExerciseList> call, Throwable t) {
-                try {
-                    throw (t);
-                } catch (Throwable throwable) {
-                    throwable.printStackTrace();
+                    ExerciseList exerciseLists = response.body();
+                    arrayList.addAll(exerciseLists.getResults());
                 }
-            }
-        });
+
+                @Override
+                public void onFailure(Call<ExerciseList> call, Throwable t) {
+                    try {
+                        throw (t);
+                    } catch (Throwable throwable) {
+                        throwable.printStackTrace();
+                    }
+                }
+            });
+        }
+        getViewState().getExercise(arrayList);
     }
 }

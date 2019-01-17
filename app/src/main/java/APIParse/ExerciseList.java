@@ -19,7 +19,7 @@ public class ExerciseList {
     private String previous;
     @SerializedName("results")
     @Expose
-    private List<Result> results = null;
+    private List<Exercise> results = null;
 
     public Integer getCount() {
         return count;
@@ -45,11 +45,11 @@ public class ExerciseList {
         this.previous = previous;
     }
 
-    public List<Result> getResults() {
+    public List<Exercise> getResults() {
         return results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(List<Exercise> results) {
         this.results = results;
     }
 
