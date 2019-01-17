@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ViewHolder> {
+public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHolder> {
 
-    private List<Exercise> data;
+    private List<Training> data;
     private ListItemClickListener mOnClickListener;
 
-    public ExercisesAdapter(final List<Exercise> data, ListItemClickListener listener){
+    public TrainingAdapter(final List<Training> data, ListItemClickListener listener){
         this.data = data;
         mOnClickListener = listener;
 
@@ -37,8 +37,8 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Exercise exercise = data.get(position);
-        holder.name.setText(exercise.name);
+        Training training = data.get(position);
+        holder.name.setText(training.name);
     }
 
     @Override
@@ -46,11 +46,11 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
         return data.size();
     }
 
-    public void setData(List<Exercise> data){
+    public void setData(List<Training> data){
         this.data = data;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder  {
         private View view;
         private TextView name;
 
@@ -58,15 +58,15 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.View
             super(itemView);
             view = itemView;
             name = view.findViewById(R.id.name);
-            itemView.setOnClickListener(this);
-        }
 
-        @Override
-        public void onClick(View v) {
-            int clickedPosition = getAdapterPosition();
-            mOnClickListener.onListItemClick(clickedPosition);
-            Log.d("MYLOG", "OnCLICKset");
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int clickedPosition = getAdapterPosition();
+                    mOnClickListener.onListItemClick(clickedPosition);
+                    Log.d("MYLOG", "OnCLICKset");
+                }
+            });
         }
-
     }
 }

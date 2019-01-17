@@ -16,8 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DayChoosing" />
-        <activity android:name=".TrainingDescription"></activity>
+        <activity android:name=".TrainingChoosing" />
+        <activity android:name=".TrainingDescription" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ChooseExercise"></activity>
     </application>
 
 </manifest>

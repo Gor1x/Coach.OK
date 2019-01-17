@@ -30,7 +30,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(getApplicationContext(), DayChoosing.class);
+        Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
         startActivity(intent);
 
 

@@ -1,4 +1,4 @@
-package com.example.fitnes;
+package UserStatsDatabase;
 
 public class Users {
 

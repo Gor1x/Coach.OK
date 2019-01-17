@@ -1,9 +1,9 @@
 package com.example.fitnes;
 
-public class Exercise {
+public class Training {
     public String name;
 
-    public Exercise(String name) {
+    public Training(String name) {
         this.name = name;
     }
 

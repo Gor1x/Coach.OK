@@ -1,4 +1,4 @@
-package com.example.fitnes;
+package UserStatsDatabase;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
