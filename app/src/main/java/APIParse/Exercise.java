@@ -58,6 +58,7 @@ public class Exercise {
     public Exercise(String description, String name) {
         this.description = description;
         this.name = name;
+        this.id = 0;
     }
 
     public void setId(Integer id) {
