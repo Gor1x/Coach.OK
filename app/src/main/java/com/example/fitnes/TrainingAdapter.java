@@ -23,6 +23,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHo
 
     public interface ListItemClickListener{
         void onListItemClick(int clickedItemIndex);
+        void onListItemLongClick(int clickedItemIndex);
     }
 
     @NonNull
@@ -30,7 +31,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         return new ViewHolder(LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.item_exercise,
+                .inflate(R.layout.item_training,
                         parent,
                         false));
     }
@@ -59,12 +60,22 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHo
             view = itemView;
             name = view.findViewById(R.id.name);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int clickedPosition = getAdapterPosition();
                     mOnClickListener.onListItemClick(clickedPosition);
                     Log.d("MYLOG", "OnCLICKset");
+                }
+            });
+
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int clickedPosition = getAdapterPosition();
+                    mOnClickListener.onListItemLongClick(clickedPosition);
+                    Log.d("MYLOG", "OnCLICKsetLong");
+                    return false;
                 }
             });
         }

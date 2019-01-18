@@ -34,7 +34,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         startActivity(intent);
 
 
-        presenter.info();
+        //presenter.info();
     }
 
 
