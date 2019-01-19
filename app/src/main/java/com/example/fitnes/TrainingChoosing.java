@@ -41,7 +41,7 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
     }
 
     @Override
-    public void onListItemLongClick(int clickedItemIndex) { //Вызов редактора
+    public void onListItemImgClick(int clickedItemIndex) { //Вызов редактора
         Toast.makeText(getApplicationContext(), "U did it", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(), ExerciseChoosing.class);
         startActivity(intent);

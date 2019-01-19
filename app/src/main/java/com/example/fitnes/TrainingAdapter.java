@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -23,7 +24,8 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHo
 
     public interface ListItemClickListener{
         void onListItemClick(int clickedItemIndex);
-        void onListItemLongClick(int clickedItemIndex);
+
+        void onListItemImgClick(int clickedItemIndex);
     }
 
     @NonNull
@@ -54,12 +56,13 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder  {
         private View view;
         private TextView name;
+        private ImageView img;
 
         public ViewHolder(View itemView) {
             super(itemView);
             view = itemView;
             name = view.findViewById(R.id.name);
-
+            img = view.findViewById(R.id.img);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -69,13 +72,12 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHo
                 }
             });
 
-            view.setOnLongClickListener(new View.OnLongClickListener() {
+            img.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onLongClick(View v) {
+                public void onClick(View v) {
                     int clickedPosition = getAdapterPosition();
-                    mOnClickListener.onListItemLongClick(clickedPosition);
-                    Log.d("MYLOG", "OnCLICKsetLong");
-                    return false;
+                    mOnClickListener.onListItemImgClick(clickedPosition);
+                    Log.d("MYLOG", "onIMGclick");
                 }
             });
         }
