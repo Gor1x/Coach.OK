@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fitnes">
-<uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/dumbbell"
@@ -16,10 +18,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TrainingChoosing" />
-        <activity android:name=".TrainingDescription" />
+        <activity
+            android:name=".TrainingChoosing"
+            android:label="Выбор типа тренировки" />
+        <activity
+            android:name=".TrainingDescription"
+            android:label="Описание тренировки" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".ChooseExercise"></activity>
+        <activity
+            android:name=".ExerciseChoosing"
+            android:label="Выберите упражнения" />
+        <activity
+            android:name=".ExerciseDescription"
+            android:label="Описание упражнения" />
     </application>
 
 </manifest>
