@@ -1,15 +1,21 @@
 package APIParse;
 
+import android.annotation.SuppressLint;
+import android.arch.persistence.room.Room;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import DB.DataBase;
+import DB.MyApplication;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
+import retrofit2.Response;  
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -52,6 +58,14 @@ public class MainPresenter extends MvpPresenter<IMainView> {
                 }
             });
         }
-        getViewState().getExercise(arrayList);
+    }
+    @SuppressLint("StaticFieldLeak")
+    public void start() {
+        new AsyncTask<Void, Void, List<Exercise>>() {
+            @Override
+            protected List<Exercise> doInBackground(Void... voids) {
+                return MyApplication.getInstanse().getDataBase().daoExercise().getAllExercise();
+            }
+        }.execute();
     }
 }

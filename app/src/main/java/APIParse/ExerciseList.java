@@ -1,4 +1,3 @@
-
 package APIParse;
 
 import com.google.gson.annotations.Expose;
