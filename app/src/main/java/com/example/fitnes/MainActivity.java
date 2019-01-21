@@ -10,6 +10,7 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import APIParse.Exercise;
 import APIParse.ExerciseList;
@@ -39,7 +40,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
 
     @Override
-    public void getExercise(ArrayList<Exercise> exercises) {
+    public void getExercise(List<Exercise> exercises) {
 
     }
 
