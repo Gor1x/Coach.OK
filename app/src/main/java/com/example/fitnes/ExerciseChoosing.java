@@ -6,13 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import APIParse.Exercise;
 
 public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapter.ListItemClickListener{
 
-    private ArrayList<Exercise> exerciseList;
+    private List<Exercise> exerciseList;
     private RecyclerView list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +22,7 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
         list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
-        exerciseList = new ArrayList<>();
-        exerciseList.add(new Exercise("Doing something", "Chilling"));
+        exerciseList = MainActivity.getExercise();
         ExerciseAdapter adapter = new ExerciseAdapter(exerciseList, this);
         list.setAdapter(adapter);
     }

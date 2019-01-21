@@ -66,6 +66,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     @Override
     public void setExercise(List<Exercise> exercises) {
         progressBar.setVisibility(ProgressBar.GONE);
+        MainActivity.exercises = exercises;
         Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
         startActivity(intent);
     }
