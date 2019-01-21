@@ -3,7 +3,6 @@ package com.example.fitnes;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -12,15 +11,12 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import APIParse.Exercise;
-import APIParse.ExerciseList;
 import APIParse.IMainView;
 import APIParse.MainPresenter;
 import APIParse.MusclePackage.Muscle;
-import retrofit2.Call;
 
 
 public class MainActivity extends MvpAppCompatActivity implements IMainView {
@@ -75,6 +71,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void error() {
-        Toast.makeText(getApplicationContext(), "JSON НЕ СКАЧЕН", Toast.LENGTH_LONG);
+        Toast.makeText(getApplicationContext(), "JSON НЕ СКАЧЕН", Toast.LENGTH_LONG).show();
     }
 }
