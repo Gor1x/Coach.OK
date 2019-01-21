@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/add_training"
+    <item android:id="@+id/save_training"
         app:showAsAction="always"
-        android:icon="@drawable/plus"
-        android:title="Add training"/>
+        android:icon="@drawable/done"
+        android:title="Save training"/>
 
 </menu>
