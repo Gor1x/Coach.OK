@@ -13,7 +13,7 @@ import APIParse.MusclePackage.Muscle;
 public class MainPresenter extends MvpPresenter<IMainView> {
 
 
-    public void info() {
+    public void getExercise() {
         getViewState().load();
         APIHelper.getInstance().loadExercise(new APIHelper.OnCallback<List<Exercise>>() {
             @Override

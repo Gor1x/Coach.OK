@@ -64,8 +64,8 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void getMuscle(List<Muscle> muscles) {
-        Log.d("MyLog",String.valueOf(muscles.size()));
-        presenter.info();
+        Log.d("My Log",String.valueOf(muscles.size()));
+        presenter.getExercise();
     }
 
     @Override
