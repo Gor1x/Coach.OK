@@ -13,12 +13,12 @@ import APIParse.MusclePackage.Muscle;
 public class MainPresenter extends MvpPresenter<IMainView> {
 
 
-    public void getExercise() {
+    public void returnExercise() {
         getViewState().load();
         APIHelper.getInstance().loadExercise(new APIHelper.OnCallback<List<Exercise>>() {
             @Override
             public void onCallback(List<Exercise> response) {
-                getViewState().getExercise(response);
+                getViewState().setExercise(response);
             }
 
 
@@ -28,12 +28,12 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             }
         });
     }
-    public void getMuscle(){
+    public void returnMuscle(){
         getViewState().load();
         APIHelperMuscle.getInstance().loadMusclefinal(new APIHelperMuscle.OnCallback<List<Muscle>>() {
             @Override
             public void onCallback(List<Muscle> response) {
-                getViewState().getMuscle(response);
+                getViewState().setMuscle(response);
             }
 
             @Override
