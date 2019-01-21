@@ -22,8 +22,10 @@ import APIParse.MusclePackage.Muscle;
 public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
 
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
     SharedPreferences prefs = null;
+    private static List<Exercise> exercises;
+
     @InjectPresenter
     public MainPresenter presenter;
     private Button btn;
@@ -55,6 +57,10 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     public void setMuscle(List<Muscle> muscles) {
         Log.d("My Log",String.valueOf(muscles.size()));
         presenter.returnExercise();
+    }
+
+    public static List<Exercise> getExercise(){
+        return exercises;
     }
 
     @Override
