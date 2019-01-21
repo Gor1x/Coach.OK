@@ -44,7 +44,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         super.onResume();
         presenter.returnMuscle();
        /* if (prefs.getBoolean("firstrun", true)) {
-
             prefs.edit().putBoolean("firstrun", false).commit();
         }
         else{
