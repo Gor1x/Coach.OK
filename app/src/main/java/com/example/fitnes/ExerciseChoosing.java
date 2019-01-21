@@ -1,8 +1,8 @@
 package com.example.fitnes;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -17,7 +17,7 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_exercise);
+        setContentView(R.layout.activity_exercise_choose);
         list = findViewById(R.id.list);
         list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 

@@ -19,7 +19,7 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_day_choosing);
+        setContentView(R.layout.activity_training_choose);
         for (String v: names){
             exerciseList.add(new Training(v));
         }
