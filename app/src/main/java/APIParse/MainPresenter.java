@@ -5,6 +5,9 @@ import com.arellomobile.mvp.MvpPresenter;
 
 import java.util.List;
 
+import APIParse.MusclePackage.APIHelperMuscle;
+import APIParse.MusclePackage.Muscle;
+
 
 @InjectViewState
 public class MainPresenter extends MvpPresenter<IMainView> {
@@ -12,11 +15,24 @@ public class MainPresenter extends MvpPresenter<IMainView> {
 
     public void info() {
         getViewState().load();
-
         APIHelper.getInstance().loadExercise(new APIHelper.OnCallback<List<Exercise>>() {
             @Override
             public void onCallback(List<Exercise> response) {
                 getViewState().getExercise(response);
+            }
+
+
+            @Override
+            public void onError() {
+                getViewState().error();
+            }
+        });
+    }
+    public void muscleReturn(){
+        APIHelperMuscle.getInstance().loadMusclefinal(new APIHelperMuscle.OnCallback<List<Muscle>>() {
+            @Override
+            public void onCallback(List<Muscle> response) {
+                getViewState().getMuscle(response);
             }
 
             @Override
@@ -24,7 +40,6 @@ public class MainPresenter extends MvpPresenter<IMainView> {
                 getViewState().error();
             }
         });
-
-
     }
+
 }

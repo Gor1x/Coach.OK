@@ -18,6 +18,7 @@ import APIParse.Exercise;
 import APIParse.ExerciseList;
 import APIParse.IMainView;
 import APIParse.MainPresenter;
+import APIParse.MusclePackage.Muscle;
 import retrofit2.Call;
 
 
@@ -40,23 +41,31 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     protected void onResume() {
 
         super.onResume();
-        if (prefs.getBoolean("firstrun", true)) {
-            presenter.info();
+        presenter.muscleReturn();
+       /* if (prefs.getBoolean("firstrun", true)) {
+
             prefs.edit().putBoolean("firstrun", false).commit();
         }
         else{
             Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
             startActivity(intent);
-        }
+        }*/
     }
 
     @Override
     public void getExercise(List<Exercise> exercises) {
+
         Log.d("MyLog", exercises.toString());
         Log.d("MyLog",String.valueOf(exercises.size()));
         Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG);
         Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void getMuscle(List<Muscle> muscles) {
+        Log.d("MyLog",String.valueOf(muscles.size()));
+        presenter.info();
     }
 
     @Override
