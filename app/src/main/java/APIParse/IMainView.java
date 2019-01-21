@@ -7,8 +7,8 @@ import java.util.List;
 import APIParse.MusclePackage.Muscle;
 
 public interface IMainView extends MvpView {
-    void getExercise(List<Exercise> exercises);
-    void getMuscle(List<Muscle> muscles);
+    void setExercise(List<Exercise> exercises);
+    void setMuscle(List<Muscle> muscles);
     void load();
     void error();
 }

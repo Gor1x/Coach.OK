@@ -28,7 +28,8 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             }
         });
     }
-    public void muscleReturn(){
+    public void getMuscle(){
+        getViewState().load();
         APIHelperMuscle.getInstance().loadMusclefinal(new APIHelperMuscle.OnCallback<List<Muscle>>() {
             @Override
             public void onCallback(List<Muscle> response) {

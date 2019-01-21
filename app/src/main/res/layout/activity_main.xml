@@ -7,6 +7,12 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 
 </LinearLayout>

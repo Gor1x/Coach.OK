@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -24,6 +25,8 @@ import retrofit2.Call;
 
 public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
+
+    ProgressBar progressBar;
     SharedPreferences prefs = null;
     @InjectPresenter
     public MainPresenter presenter;
@@ -33,7 +36,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        progressBar  = findViewById(R.id.progressBar);
         prefs = getSharedPreferences("com.mycompany.myAppName", MODE_PRIVATE);
     }
 
@@ -41,7 +44,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     protected void onResume() {
 
         super.onResume();
-        presenter.muscleReturn();
+        presenter.getMuscle();
        /* if (prefs.getBoolean("firstrun", true)) {
 
             prefs.edit().putBoolean("firstrun", false).commit();
@@ -53,23 +56,23 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     }
 
     @Override
-    public void getExercise(List<Exercise> exercises) {
+    public void setExercise(List<Exercise> exercises) {
 
-        Log.d("MyLog", exercises.toString());
-        Log.d("MyLog",String.valueOf(exercises.size()));
-        Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG);
+        progressBar.setVisibility(ProgressBar.GONE);
         Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
         startActivity(intent);
     }
 
     @Override
-    public void getMuscle(List<Muscle> muscles) {
+    public void setMuscle(List<Muscle> muscles) {
         Log.d("My Log",String.valueOf(muscles.size()));
         presenter.getExercise();
     }
 
     @Override
     public void load() {
+
+        progressBar.setVisibility(ProgressBar.VISIBLE);
 
     }
 
