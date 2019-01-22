@@ -1,9 +1,9 @@
 package com.example.fitnes;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -32,7 +32,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         progressBar  = findViewById(R.id.progressBar);
-
     }
 
     @Override
@@ -45,7 +44,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void setMuscle(List<Muscle> muscles) {
-        Log.d("My Log",String.valueOf(muscles.size()));
         presenter.returnExercise();
     }
 
