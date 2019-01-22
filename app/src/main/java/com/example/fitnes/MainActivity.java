@@ -43,6 +43,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
         super.onResume();
         presenter.returnMuscle();
+
        /* if (prefs.getBoolean("firstrun", true)) {
 
             prefs.edit().putBoolean("firstrun", false).commit();
@@ -55,7 +56,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void setMuscle(List<Muscle> muscles) {
-        Log.d("My Log",String.valueOf(muscles.size()));
+        presenter.MusclesDB(muscles);
         presenter.returnExercise();
     }
 
@@ -66,7 +67,14 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     @Override
     public void setExercise(List<Exercise> exercises) {
         progressBar.setVisibility(ProgressBar.GONE);
+        Log.d("MyLog", exercises.toString());
+        Log.d("MyLog",String.valueOf(exercises.size()));
+
         MainActivity.exercises = exercises;
+
+        presenter.ExerciseDB(exercises);
+
+        Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
         startActivity(intent);
     }
