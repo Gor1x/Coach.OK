@@ -11,7 +11,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 
 import java.util.List;
 
-import APIParse.Exercise;
 import APIParse.IMainView;
 import APIParse.MainPresenter;
 import APIParse.MusclePackage.Muscle;
@@ -19,8 +18,7 @@ import APIParse.MusclePackage.Muscle;
 
 public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
-    private ProgressBar progressBar;
-    private static List<Exercise> exercises;
+    private static ProgressBar progressBar;
 
     @InjectPresenter
     public MainPresenter presenter;
@@ -30,12 +28,12 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         progressBar  = findViewById(R.id.progressBar);
-        downloadMuscles();
+        presenter.downloadInfo(presenter);
     }
 
     @Override
     public void setMuscle(List<Muscle> muscles) {
-       //Какой то установщик мышц ахахах.
+        //Какой то установщик мышц ахахах.
     }
 
 
@@ -46,40 +44,13 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         startActivity(intent);
     }
 
-    public static List<Exercise> getExercise(){
-        return exercises;
-    }
-
-    private void setProgress(boolean flag){
+    private static void setProgress(boolean flag){
         if (flag){
             progressBar.setVisibility(View.VISIBLE);
         }
         else {
             progressBar.setVisibility(View.GONE);
         }
-    }
-
-    @Override
-    public void downloadMuscles() {
-        presenter.returnMuscle();
-    }
-
-    @Override
-    public void downloadExercise() {
-        presenter.returnExercise();
-    }
-
-    @Override
-    public void setExerciseDB(List<Exercise> exercises) {
-        DBRoom.exerciseDB(exercises);
-    }
-
-    @Override
-    public void setExercise(List<Exercise> exercises) {
-        setProgress(false);
-        MainActivity.exercises = exercises;
-        Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
-        startActivity(intent);
     }
 
     @Override

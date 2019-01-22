@@ -32,7 +32,7 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
 
         exerciseRecView = findViewById(R.id.list_exercise);
         exerciseRecView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        exerciseList = MainActivity.getExercise();
+        exerciseList = DBRoom.getExerciseList();
 
         ExerciseAdapter adapter = new ExerciseAdapter(exerciseList, this);
         exerciseRecView.setAdapter(adapter);
