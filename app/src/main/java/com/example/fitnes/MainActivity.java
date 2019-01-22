@@ -19,7 +19,6 @@ import APIParse.MusclePackage.Muscle;
 
 public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
-
     private ProgressBar progressBar;
     private static List<Exercise> exercises;
 
@@ -31,20 +30,14 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         progressBar  = findViewById(R.id.progressBar);
-        getSupportActionBar().hide();
-    }
-
-    @Override
-    protected void onResume() {
-
-        super.onResume();
-        presenter.returnMuscle();
+        downloadMuscles();
     }
 
     @Override
     public void setMuscle(List<Muscle> muscles) {
-        presenter.returnExercise();
+       //Какой то установщик мышц ахахах.
     }
+
 
     @Override
     public void intentTrainingChoosing() {
@@ -66,6 +59,15 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         }
     }
 
+    @Override
+    public void downloadMuscles() {
+        presenter.returnMuscle();
+    }
+
+    @Override
+    public void downloadExercise() {
+        presenter.returnExercise();
+    }
 
     @Override
     public void setExerciseDB(List<Exercise> exercises) {
@@ -88,6 +90,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     @Override
     public void error() {
         setProgress(false);
-        Toast.makeText(getApplicationContext(), "JSON НЕ СКАЧЕН", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "JSON НЕ СКАЧАН", Toast.LENGTH_LONG).show();
     }
 }

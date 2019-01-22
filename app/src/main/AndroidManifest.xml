@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/dumbbell"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".MyApplication"
-        >
-        <activity android:name=".MainActivity">
+        android:name=".MyApplication">
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

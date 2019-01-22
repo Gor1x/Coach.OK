@@ -14,9 +14,10 @@ import APIParse.MusclePackage.Muscle;
 @InjectViewState
 public class MainPresenter extends MvpPresenter<IMainView> {
 
+
+
     public void returnExercise() {
         getViewState().load();
-
         Log.d("My Log", "returnExerciseIn");
         APIHelper.getInstance().loadExercise(new APIHelper.OnCallback<List<Exercise>>() {
             @Override
@@ -39,6 +40,7 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             @Override
             public void onCallback(List<Muscle> response) {
                 getViewState().setMuscle(response);
+                getViewState().downloadExercise();
             }
 
             @Override
