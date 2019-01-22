@@ -18,6 +18,9 @@ public interface DaoExercise {
     @Insert
     void insertExercise(Exercise exercise);
 
+    @Query("SELECT * FROM exercise WHERE id = :id")
+    Exercise getExerciseById(long id);
+
     @Delete
     void delete(Exercise exercise);
 }

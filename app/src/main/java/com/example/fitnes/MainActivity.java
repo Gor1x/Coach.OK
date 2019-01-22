@@ -20,7 +20,6 @@ import APIParse.MusclePackage.Muscle;
 
 public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
-
     private ProgressBar progressBar;
     SharedPreferences prefs = null;
     private static List<Exercise> exercises;
@@ -38,7 +37,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     protected void onResume() {
-
         super.onResume();
         presenter.returnMuscle();
 
@@ -54,7 +52,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void setMuscle(List<Muscle> muscles) {
-        presenter.MusclesDB(muscles);
+        DBRoom.MusclesDB(muscles);
         presenter.returnExercise();
     }
 
@@ -63,15 +61,19 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     }
 
     @Override
+    public void setExerciseDB(List<Exercise> exercises) {
+        DBRoom.ExerciseDB(exercises);
+    }
+
+    @Override
     public void setExercise(List<Exercise> exercises) {
         progressBar.setVisibility(ProgressBar.GONE);
-        Log.d("MyLog", exercises.toString());
-        Log.d("MyLog",String.valueOf(exercises.size()));
-
         MainActivity.exercises = exercises;
+    }
 
-        presenter.ExerciseDB(exercises);
 
+    @Override
+    public void IntentTrainingChoosing(){
         Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
         startActivity(intent);
@@ -84,6 +86,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void error() {
-        Toast.makeText(getApplicationContext(), "JSON НЕ СКАЧЕН", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "JSON НЕ СКАЧАН", Toast.LENGTH_LONG).show();
     }
 }

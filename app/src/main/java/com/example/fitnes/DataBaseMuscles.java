@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import APIParse.MusclePackage.Muscle;
 import Room.DaoMuscle;
 
-@Database(entities = {Muscle.class}, version = 2)
+@Database(entities = {Muscle.class}, version = 1)
 public abstract class DataBaseMuscles extends RoomDatabase {
     public abstract DaoMuscle daoMuscle();
 }
