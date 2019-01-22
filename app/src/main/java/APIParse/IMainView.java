@@ -13,7 +13,7 @@ public interface IMainView extends MvpView {
     void setExercise(List<Exercise> exercises);
     void setMuscle(List<Muscle> muscles);
 
-    void IntentTrainingChoosing();
+    void intentTrainingChoosing();
 
     void load();
     void error();

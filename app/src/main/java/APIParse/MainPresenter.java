@@ -1,13 +1,9 @@
 package APIParse;
 
-import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.example.fitnes.MainActivity;
-import com.example.fitnes.MyApplication;
 
 import java.util.List;
 
@@ -27,7 +23,7 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             public void onCallback(List<Exercise> response) {
                 getViewState().setExerciseDB(response);
                 getViewState().setExercise(response);
-                getViewState().IntentTrainingChoosing();
+                getViewState().intentTrainingChoosing();
             }
 
 
@@ -39,7 +35,7 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     }
     public void returnMuscle(){
         getViewState().load();
-        APIHelperMuscle.getInstance().loadMusclefinal(new APIHelperMuscle.OnCallback<List<Muscle>>() {
+        APIHelperMuscle.getInstance().loadMuscleFinal(new APIHelperMuscle.OnCallback<List<Muscle>>() {
             @Override
             public void onCallback(List<Muscle> response) {
                 getViewState().setMuscle(response);

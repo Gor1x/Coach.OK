@@ -11,7 +11,7 @@ import APIParse.MusclePackage.Muscle;
 public class DBRoom {
 
     @SuppressLint("StaticFieldLeak")
-    public static void MusclesDB(final List<Muscle> muscles) {
+    public static void musclesDB(final List<Muscle> muscles) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... Void) {
@@ -22,7 +22,7 @@ public class DBRoom {
         }.execute();
     }
     @SuppressLint("StaticFieldLeak")
-    public static void ExerciseDB(final List<Exercise> exercises) {
+    public static void exerciseDB(final List<Exercise> exercises) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... Void) {

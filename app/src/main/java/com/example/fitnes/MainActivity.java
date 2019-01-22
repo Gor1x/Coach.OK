@@ -1,9 +1,8 @@
 package com.example.fitnes;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -39,12 +38,18 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
         super.onResume();
         presenter.returnMuscle();
-
     }
 
     @Override
     public void setMuscle(List<Muscle> muscles) {
         presenter.returnExercise();
+    }
+
+    @Override
+    public void intentTrainingChoosing() {
+        Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
+        startActivity(intent);
     }
 
     public static List<Exercise> getExercise(){
@@ -60,6 +65,11 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         }
     }
 
+
+    @Override
+    public void setExerciseDB(List<Exercise> exercises) {
+        DBRoom.exerciseDB(exercises);
+    }
 
     @Override
     public void setExercise(List<Exercise> exercises) {

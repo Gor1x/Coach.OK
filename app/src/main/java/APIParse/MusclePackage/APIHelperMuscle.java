@@ -5,10 +5,6 @@ import android.os.AsyncTask;
 import java.util.ArrayList;
 import java.util.List;
 
-import APIParse.API;
-import APIParse.APIHelper;
-import APIParse.Exercise;
-import APIParse.ExerciseList;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -37,7 +33,7 @@ public class APIHelperMuscle {
         apiService = retrofit.create(APIMuscle.class);
     }
 
-    public void loadMusclefinal (final OnCallback<List<Muscle>> callback){
+    public void loadMuscleFinal(final OnCallback<List<Muscle>> callback){
 
         class MyTask extends AsyncTask<Void, Void, List<Muscle>> {
 
