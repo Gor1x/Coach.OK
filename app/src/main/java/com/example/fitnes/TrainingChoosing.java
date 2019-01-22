@@ -28,8 +28,10 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training_choose);
+
         view = findViewById(R.id.coordinator);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -41,6 +43,7 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
         list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new TrainingAdapter(exerciseList, this);
         list.setAdapter(adapter);
+
     }
 
 
