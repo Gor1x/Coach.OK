@@ -43,7 +43,7 @@ public class APIHelper {
             protected List<Exercise> doInBackground(Void... voids) {
                 List<Exercise> result = new ArrayList<>();
                 Call<ExerciseList> call;
-                int page = 26;
+                int page = 1;
                 Response<ExerciseList> response;
                 ExerciseList exerciseList;
                 String next;

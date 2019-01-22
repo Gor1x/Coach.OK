@@ -6,19 +6,22 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import APIParse.Exercise;
-import APIParse.MainPresenter;
 import APIParse.MusclePackage.Muscle;
 
 public class DBRoom {
 
     private static List<Exercise> exerciseList = null;
 
+    public interface OnCallbackGetAllExercise{
+        void onCallback(List<Exercise> exercises);
+    }
+
     public static List<Exercise> getExerciseList() {
         return exerciseList;
     }
 
     public static void setExerciseList(List<Exercise> exerciseList) {
-        DBRoom.exerciseList = exerciseList;
+            DBRoom.exerciseList = exerciseList;
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -45,7 +48,7 @@ public class DBRoom {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public static void getAllExerciseDB(final MainPresenter presenter) {
+    public static void getAllExerciseDB(final OnCallbackGetAllExercise callback) {
         new AsyncTask<Void, Void, List<Exercise>>() {
             @Override
             protected List<Exercise> doInBackground(Void... voids) {
@@ -54,13 +57,7 @@ public class DBRoom {
 
             @Override
             protected void onPostExecute(List<Exercise> exercises) {
-                exerciseList = exercises;
-                if (exercises == null){
-                    presenter.startDownload();
-                }
-                else {
-                    presenter.goInTrainingChoosing();
-                }
+                callback.onCallback(exercises);
             }
         }.execute();
     }

@@ -16,7 +16,15 @@ import APIParse.MusclePackage.Muscle;
 public class MainPresenter extends MvpPresenter<IMainView> {
 
     public void downloadInfo(MainPresenter presenter){
-       DBRoom.getAllExerciseDB(presenter);
+       DBRoom.getAllExerciseDB(new DBRoom.OnCallbackGetAllExercise() {
+           @Override
+           public void onCallback(List<Exercise> exercises) {
+               if (exercises == null)
+                   startDownload();
+               else
+                   goInTrainingChoosing();
+           }
+       });
     }
 
     public void startDownload(){
@@ -26,7 +34,6 @@ public class MainPresenter extends MvpPresenter<IMainView> {
     public void goInTrainingChoosing(){
         getViewState().intentTrainingChoosing();
     }
-
 
     public void returnExercise() {
         Log.d("My Log", "returnExerciseIn");
