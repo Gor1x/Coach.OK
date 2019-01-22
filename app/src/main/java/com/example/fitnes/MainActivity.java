@@ -31,6 +31,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         progressBar  = findViewById(R.id.progressBar);
+        getSupportActionBar().hide();
     }
 
     @Override

@@ -26,13 +26,13 @@ public class MainPresenter extends MvpPresenter<IMainView> {
                 getViewState().intentTrainingChoosing();
             }
 
-
             @Override
             public void onError() {
                 getViewState().error();
             }
         });
     }
+
     public void returnMuscle(){
         getViewState().load();
         APIHelperMuscle.getInstance().loadMuscleFinal(new APIHelperMuscle.OnCallback<List<Muscle>>() {
