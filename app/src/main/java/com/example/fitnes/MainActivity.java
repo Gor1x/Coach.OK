@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         progressBar  = findViewById(R.id.progressBar);
-        prefs = getSharedPreferences("com.mycompany.myAppName", MODE_PRIVATE);
+
     }
 
     @Override
@@ -41,14 +42,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
         super.onResume();
         presenter.returnMuscle();
-       /* if (prefs.getBoolean("firstrun", true)) {
 
-            prefs.edit().putBoolean("firstrun", false).commit();
-        }
-        else{
-            Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
-            startActivity(intent);
-        }*/
     }
 
     @Override
@@ -61,9 +55,18 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         return exercises;
     }
 
+    private void setProgress(boolean flag){
+        if (flag){
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        else {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void setExercise(List<Exercise> exercises) {
-        progressBar.setVisibility(ProgressBar.GONE);
+        setProgress(false);
         MainActivity.exercises = exercises;
         Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
         startActivity(intent);
@@ -71,7 +74,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void load() {
-        progressBar.setVisibility(ProgressBar.VISIBLE);
+        setProgress(true);
     }
 
     @Override
