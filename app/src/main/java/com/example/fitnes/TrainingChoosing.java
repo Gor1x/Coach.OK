@@ -1,6 +1,5 @@
 package com.example.fitnes;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -35,8 +34,10 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
         for (String v: names){
             exerciseList.add(new Training(v));
         }
+
         list = findViewById(R.id.list);
         list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
         adapter = new TrainingAdapter(exerciseList, this);
         list.setAdapter(adapter);
     }

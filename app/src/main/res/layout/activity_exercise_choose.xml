@@ -5,8 +5,7 @@
     android:id="@+id/coordinator_exercise"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".TrainingChoosing"
-    android:orientation="vertical">
+    tools:context=".ExerciseChoosing">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

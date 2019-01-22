@@ -2,10 +2,8 @@ package com.example.fitnes;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +23,6 @@ public class TrainingDescription extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_training_description);
         setSupportActionBar(toolbar);
 
-        Log.d("MYLOG", "TrainingDescription");
         description = findViewById(R.id.description_training);
         Intent intent = getIntent();
         description.setText(intent.getStringExtra("TrainingName"));
@@ -33,8 +30,10 @@ public class TrainingDescription extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.add_training) {
-            Snackbar.make(view, "You have added training", Snackbar.LENGTH_LONG).show();
+        if (item.getItemId() == R.id.edit_training) {
+            Intent intent = new Intent(getApplicationContext(), ExerciseChoosing.class);
+            intent.putExtra("Info", "training name");
+            startActivity(intent);
         }
         return true;
 

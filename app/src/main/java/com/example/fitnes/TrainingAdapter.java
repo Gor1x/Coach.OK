@@ -38,7 +38,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Training training = data.get(position);
-        holder.name.setText(training.name);
+        holder.name.setText(training.getName());
     }
 
     @Override

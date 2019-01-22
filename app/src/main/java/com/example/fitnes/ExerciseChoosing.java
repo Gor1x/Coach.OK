@@ -18,7 +18,7 @@ import APIParse.Exercise;
 public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapter.ListItemClickListener{
 
     private List<Exercise> exerciseList;
-    private RecyclerView list;
+    private RecyclerView exerciseRecView;
     private View viewExercise;
     private Toolbar toolbarExercise;
 
@@ -30,20 +30,20 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
         toolbarExercise = findViewById(R.id.toolbar_exercise);
         setSupportActionBar(toolbarExercise);
 
-        list = findViewById(R.id.list);
-        list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
+        exerciseRecView = findViewById(R.id.list_exercise);
+        exerciseRecView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         exerciseList = MainActivity.getExercise();
+
         ExerciseAdapter adapter = new ExerciseAdapter(exerciseList, this);
-        list.setAdapter(adapter);
+        exerciseRecView.setAdapter(adapter);
     }
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
         Exercise exercise = exerciseList.get(clickedItemIndex);
         Intent intent = new Intent(getApplicationContext(), ExerciseDescription.class);
-        intent.putExtra("Id", Integer.toString(exercise.getId())); //Открытие активности с exercise decription
+        intent.putExtra("Id", Integer.toString(exercise.getId())); //Открытие активности с exercise description
         startActivity(intent);
     }
 
