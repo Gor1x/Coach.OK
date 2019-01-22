@@ -1,7 +1,6 @@
 package com.example.fitnes;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +22,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
 
     private ProgressBar progressBar;
-    SharedPreferences prefs = null;
     private static List<Exercise> exercises;
 
     @InjectPresenter
@@ -64,6 +62,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         }
     }
 
+
     @Override
     public void setExercise(List<Exercise> exercises) {
         setProgress(false);
@@ -79,6 +78,7 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void error() {
+        setProgress(false);
         Toast.makeText(getApplicationContext(), "JSON НЕ СКАЧЕН", Toast.LENGTH_LONG).show();
     }
 }
