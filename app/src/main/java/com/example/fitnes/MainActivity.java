@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -28,7 +27,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @InjectPresenter
     public MainPresenter presenter;
-    private Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
