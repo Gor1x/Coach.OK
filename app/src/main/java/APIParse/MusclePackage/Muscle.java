@@ -1,10 +1,13 @@
 package APIParse.MusclePackage;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+@Entity
 public class Muscle{
-
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private Integer id;

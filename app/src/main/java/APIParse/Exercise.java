@@ -1,12 +1,17 @@
 package APIParse;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-
+@Entity
 public class Exercise {
 
+    @PrimaryKey(autoGenerate = true)
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -40,12 +45,15 @@ public class Exercise {
     @SerializedName("language")
     @Expose
     private Integer language;
+    @Ignore
     @SerializedName("muscles")
     @Expose
     private List<Integer> muscles = null;
+    @Ignore
     @SerializedName("muscles_secondary")
     @Expose
     private List<Integer> musclesSecondary = null;
+    @Ignore
     @SerializedName("equipment")
     @Expose
     private List<Integer> equipment = null;

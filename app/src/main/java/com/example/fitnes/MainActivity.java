@@ -1,9 +1,8 @@
 package com.example.fitnes;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -22,7 +21,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
 
     private ProgressBar progressBar;
-    SharedPreferences prefs = null;
     private static List<Exercise> exercises;
 
     @InjectPresenter
@@ -33,7 +31,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         progressBar  = findViewById(R.id.progressBar);
-        prefs = getSharedPreferences("com.mycompany.myAppName", MODE_PRIVATE);
     }
 
     @Override
@@ -41,28 +38,42 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
         super.onResume();
         presenter.returnMuscle();
-       /* if (prefs.getBoolean("firstrun", true)) {
-            prefs.edit().putBoolean("firstrun", false).commit();
-        }
-        else{
-            Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
-            startActivity(intent);
-        }*/
     }
 
     @Override
     public void setMuscle(List<Muscle> muscles) {
-        Log.d("My Log",String.valueOf(muscles.size()));
         presenter.returnExercise();
+    }
+
+    @Override
+    public void intentTrainingChoosing() {
+        Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
+        startActivity(intent);
     }
 
     public static List<Exercise> getExercise(){
         return exercises;
     }
 
+    private void setProgress(boolean flag){
+        if (flag){
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        else {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
+
+    @Override
+    public void setExerciseDB(List<Exercise> exercises) {
+        DBRoom.exerciseDB(exercises);
+    }
+
     @Override
     public void setExercise(List<Exercise> exercises) {
-        progressBar.setVisibility(ProgressBar.GONE);
+        setProgress(false);
         MainActivity.exercises = exercises;
         Intent intent = new Intent(getApplicationContext(), TrainingChoosing.class);
         startActivity(intent);
@@ -70,11 +81,12 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
 
     @Override
     public void load() {
-        progressBar.setVisibility(ProgressBar.VISIBLE);
+        setProgress(true);
     }
 
     @Override
     public void error() {
+        setProgress(false);
         Toast.makeText(getApplicationContext(), "JSON НЕ СКАЧЕН", Toast.LENGTH_LONG).show();
     }
 }

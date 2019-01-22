@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +39,6 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
         list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new TrainingAdapter(exerciseList, this);
         list.setAdapter(adapter);
-
     }
 
     @Override
@@ -65,13 +63,6 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
     public void onListItemClick(int clickedItemIndex) {
         Intent intent = new Intent(getApplicationContext(), TrainingDescription.class);
         intent.putExtra("TrainingName", names.get(clickedItemIndex));
-        startActivity(intent);
-    }
-
-    @Override
-    public void onListItemImgClick(int clickedItemIndex) { //Вызов редактора
-        Toast.makeText(getApplicationContext(), "U did it", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(), ExerciseChoosing.class);
         startActivity(intent);
     }
 

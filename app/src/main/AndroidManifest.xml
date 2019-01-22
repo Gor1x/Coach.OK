@@ -10,7 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/dumbbell"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".MyApplication"
+        >
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +26,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".TrainingDescription"
-            android:label="Training Description" />
+            android:label="Training Description"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ExerciseChoosing"
             android:label="Choose exercises"

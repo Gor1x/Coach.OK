@@ -1,6 +1,7 @@
 package APIParse;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class APIHelper {
                 String next;
 
                 do {
+                    Log.d("My tag", String.valueOf(page));
                     call = apiService.getPost(page, "json");
                     try {
                         response = call.execute();
