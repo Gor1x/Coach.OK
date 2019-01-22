@@ -27,7 +27,8 @@
             android:label="Training Description" />
         <activity
             android:name=".ExerciseChoosing"
-            android:label="Choose exercises" />
+            android:label="Choose exercises"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ExerciseDescription"
             android:label="Exercise description" />
