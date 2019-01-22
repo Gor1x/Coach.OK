@@ -3,12 +3,14 @@ package com.example.fitnes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,12 +23,13 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
     private ArrayList<String> names = new ArrayList<>(Arrays.asList("Shoulders", "Legs", "Seventh"));
     private Toolbar toolbar;
     private TrainingAdapter adapter;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training_choose);
-
+        view = findViewById(R.id.coordinator);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -46,6 +49,7 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
             exerciseList.add(new Training("something"));
             names.add("something");
             adapter.notifyDataSetChanged();
+            Snackbar.make(view, "You have added training", Snackbar.LENGTH_LONG).show();
         }
         return true;
 
