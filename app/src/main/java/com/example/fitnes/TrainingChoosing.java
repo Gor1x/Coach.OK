@@ -1,6 +1,7 @@
 package com.example.fitnes;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +42,7 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
         adapter = new TrainingAdapter(exerciseList, this);
         list.setAdapter(adapter);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
