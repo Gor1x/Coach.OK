@@ -12,8 +12,12 @@ public class DBRoom {
 
     private static List<Exercise> exerciseList = null;
 
-    public interface OnCallbackGetAllExercise{
+    public interface OnCallbackGetAllExercise {
         void onCallback(List<Exercise> exercises);
+    }
+
+    public interface OnCallbackComplete {
+        void OmComplete();
     }
 
     public static List<Exercise> getExerciseList() {
@@ -25,40 +29,62 @@ public class DBRoom {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public static void musclesDB(final List<Muscle> muscles) {
+    public static void musclesDB(final List<Muscle> muscles, final OnCallbackComplete callback) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... Void) {
-                for(Muscle i : muscles)
-                    MyApplication.getInstanse().getDataBaseMuscles().daoMuscle().insertMuscles(i);
+                for (Muscle i : muscles)
+                    MyApplication.getInstance().getDataBase().getMuscleDao().insertMuscles(i);
                 return null;
             }
-        }.execute();
-    }
-    @SuppressLint("StaticFieldLeak")
-    public static void exerciseDB(final List<Exercise> exercises) {
-        new AsyncTask<Void, Void, Void>() {
+
             @Override
-            protected Void doInBackground(Void... Void) {
-                for(Exercise i : exercises)
-                    MyApplication.getInstanse().getDataBase().daoExercise().insertExercise(i);
-                return null;
+            protected void onPostExecute(Void aVoid) {
+                callback.OmComplete();
             }
         }.execute();
     }
 
     @SuppressLint("StaticFieldLeak")
-    public static void getAllExerciseDB(final OnCallbackGetAllExercise callback) {
-        new AsyncTask<Void, Void, List<Exercise>>() {
+    public static void exerciseDB(final List<Exercise> exercises, final OnCallbackComplete callback) {
+        new AsyncTask<Void, Void, Void>() {
             @Override
-            protected List<Exercise> doInBackground(Void... voids) {
-                return MyApplication.getInstanse().getDataBase().daoExercise().getAllExercise();
+            protected Void doInBackground(Void... Void) {
+                for (Exercise i : exercises) {
+                    MyApplication.getInstance().getDataBase().getExerciseDao().insertExercise(i);
+                    List<Integer> list = i.getMuscles();
+                    for (Integer j : list) {
+                        try {
+                            MyApplication.getInstance().getDataBase().getMuscleExerciseDao().insert(new ExPlusMuscle(i.getId(), j));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                return null;
             }
 
-            @Override
-            protected void onPostExecute(List<Exercise> exercises) {
-                callback.onCallback(exercises);
-            }
-        }.execute();
+                @Override
+                protected void onPostExecute (Void aVoid){
+                    callback.OmComplete();
+                }
+            }.
+
+            execute();
+        }
+
+        @SuppressLint("StaticFieldLeak")
+        public static void getAllExerciseDB ( final OnCallbackGetAllExercise callback){
+            new AsyncTask<Void, Void, List<Exercise>>() {
+                @Override
+                protected List<Exercise> doInBackground(Void... voids) {
+                    return MyApplication.getInstance().getDataBase().getExerciseDao().getAllExercise();
+                }
+
+                @Override
+                protected void onPostExecute(List<Exercise> exercises) {
+                    callback.onCallback(exercises);
+                }
+            }.execute();
+        }
     }
-}

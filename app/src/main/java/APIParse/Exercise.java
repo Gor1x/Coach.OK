@@ -8,10 +8,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-@Entity
+@Entity (tableName = "dbExercise")
 public class Exercise {
-
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private Integer id;

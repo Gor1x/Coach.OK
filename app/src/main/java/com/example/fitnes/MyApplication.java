@@ -8,35 +8,23 @@ import android.support.annotation.NonNull;
 
 public class MyApplication extends Application {
 
-    private DataBase database;
-    private DataBaseMuscles databaseMuscles;
+    private DataBaseMuscleExercise dataBase;
 
-    private static MyApplication instense;
+    private static MyApplication instance;
 
-    public static MyApplication getInstanse(){
-        return instense;
+    public static MyApplication getInstance() {
+        return instance;
     }
 
-    public DataBase getDataBase(){
-        return database;
-    }
-
-    public DataBaseMuscles getDataBaseMuscles(){
-        return databaseMuscles;
+    public DataBaseMuscleExercise getDataBase() {
+        return dataBase;
     }
 
     @Override
-    public void onCreate(){
+    public void onCreate() {
         super.onCreate();
-        instense = this;
-        databaseMuscles = Room.databaseBuilder(getApplicationContext(), DataBaseMuscles.class, "dbM").addMigrations(new Migration(1, 2) {
-            @Override
-            public void migrate(@NonNull SupportSQLiteDatabase database) {
-
-            }
-        }).build();
-
-        database = Room.databaseBuilder(getApplicationContext(), DataBase.class, "dbE").addMigrations(new Migration(1, 2) {
+        instance = this;
+        dataBase = Room.databaseBuilder(getApplicationContext(), DataBaseMuscleExercise.class, "coach_ok.db").addMigrations(new Migration(1, 2) {
             @Override
             public void migrate(@NonNull SupportSQLiteDatabase database) {
 

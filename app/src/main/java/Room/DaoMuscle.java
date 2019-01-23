@@ -12,7 +12,7 @@ import APIParse.MusclePackage.Muscle;
 @Dao
 public interface DaoMuscle {
 
-    @Query("SELECT * FROM muscle")
+    @Query("SELECT * FROM dbMuscle")
     List<Muscle> getAllMuscles();
 
     @Insert

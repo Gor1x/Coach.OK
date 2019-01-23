@@ -1,6 +1,7 @@
 package APIParse;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -37,30 +38,17 @@ public class MainPresenter extends MvpPresenter<IMainView> {
         getViewState().intentTrainingChoosing();
     }
 
-    public void returnExercise() {
-        Log.d("My Log", "returnExerciseIn");
-        APIHelper.getInstance().loadExercise(new APIHelper.OnCallback<List<Exercise>>() {
-            @Override
-            public void onCallback(List<Exercise> response) {
-                DBRoom.exerciseDB(response); //Пуш ответа в базу данных
-                DBRoom.setExerciseList(response); //Ответ -> лист упражнений
-                goInTrainingChoosing();
-            }
-
-            @Override
-            public void onError() {
-                getViewState().error();
-            }
-        });
-    }
-
     public void returnMuscle(){
         getViewState().load();
         APIHelperMuscle.getInstance().loadMuscleFinal(new APIHelperMuscle.OnCallback<List<Muscle>>() {
             @Override
             public void onCallback(List<Muscle> response) {
-                getViewState().setMuscle(response);
-                returnExercise(); //Скачивание упражнений
+                DBRoom.musclesDB(response, new DBRoom.OnCallbackComplete() {
+                    @Override
+                    public void OmComplete() {
+                        returnExercise(); //Скачивание упражнений
+                    }
+                }); //Пуш ответа в базу данных
             }
 
             @Override
@@ -69,6 +57,32 @@ public class MainPresenter extends MvpPresenter<IMainView> {
             }
         });
     }
+
+    public void returnExercise() {
+        getViewState().load();
+        Log.d("My Log", "returnExerciseIn");
+        APIHelper.getInstance().loadExercise(new APIHelper.OnCallback<List<Exercise>>() {
+            @Override
+            public void onCallback(final List<Exercise> response) {
+
+                DBRoom.exerciseDB(response, new DBRoom.OnCallbackComplete() {
+                    @Override
+                    public void OmComplete() {
+                        DBRoom.setExerciseList(response); //Ответ -> лист упражнений
+                        goInTrainingChoosing();
+                    }
+                }); //Пуш ответа в базу данных
+
+            }
+
+            @Override
+            public void onError() {
+                getViewState().error();
+            }
+        });
+    }
+
+
 
 }
 

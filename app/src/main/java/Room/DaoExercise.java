@@ -12,13 +12,13 @@ import APIParse.Exercise;
 @Dao
 public interface DaoExercise {
 
-    @Query("SELECT * FROM exercise")
+    @Query("SELECT * FROM dbExercise")
     List<Exercise> getAllExercise();
 
     @Insert
     void insertExercise(Exercise exercise);
 
-    @Query("SELECT * FROM exercise WHERE id = :id")
+    @Query("SELECT * FROM dbExercise WHERE id = :id")
     Exercise getExerciseById(long id);
 
     @Delete
