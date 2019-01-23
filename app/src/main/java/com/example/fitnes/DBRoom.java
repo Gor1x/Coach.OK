@@ -21,7 +21,7 @@ public class DBRoom {
     }
 
     public static void setExerciseList(List<Exercise> exerciseList) {
-            DBRoom.exerciseList = exerciseList;
+        DBRoom.exerciseList = exerciseList;
     }
 
     @SuppressLint("StaticFieldLeak")

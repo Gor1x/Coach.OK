@@ -21,8 +21,10 @@ public class MainPresenter extends MvpPresenter<IMainView> {
            public void onCallback(List<Exercise> exercises) {
                if (exercises == null || exercises.size() == 0)
                    startDownload();
-               else
+               else {
+                   DBRoom.setExerciseList(exercises);
                    goInTrainingChoosing();
+               }
            }
        });
     }
