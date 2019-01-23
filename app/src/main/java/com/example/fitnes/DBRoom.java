@@ -11,7 +11,6 @@ import APIParse.MusclePackage.Muscle;
 public class DBRoom {
 
 
-
     public interface OnCallbackGetAllExercise {
         void onCallback(List<Exercise> exercises);
     }
@@ -186,20 +185,36 @@ public class DBRoom {
         }
 
 
-        @SuppressLint("StaticFieldLeak")
-        public static Exercise getExerciseForTraining (final OnCallbackGetAllExercise callbackE, final int id){
-            new AsyncTask<Void, Void, List<Exercise>>() {
-                @Override
-                protected List<Exercise> doInBackground(Void... voids) {
-                    return MyApplication.getInstance().getDataBase().getTrainingExerciseDao().getExerciseForTraining(id);
-                }
-                @Override
-                protected void onPostExecute(List<Exercise> exercises) {
-                    callbackE.onCallback(exercises);
-                }
-            }.execute();
-            return null;
-        }
+    @SuppressLint("StaticFieldLeak")
+    public static Exercise getExerciseForTraining (final OnCallbackGetAllExercise callbackE, final int id){
+        new AsyncTask<Void, Void, List<Exercise>>() {
+            @Override
+            protected List<Exercise> doInBackground(Void... voids) {
+                return MyApplication.getInstance().getDataBase().getTrainingExerciseDao().getExerciseForTraining(id);
+            }
+            @Override
+            protected void onPostExecute(List<Exercise> exercises) {
+                callbackE.onCallback(exercises);
+            }
+        }.execute();
+        return null;
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public static void deleteTrainingDB (final OnCallbackComplete callback, final Training training){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                MyApplication.getInstance().getDataBase().getTrainingDao().deleteTraining(training);
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void avoid) {
+                callback.OmComplete();
+            }
+        }.execute();
+    }
+
 
 
 
