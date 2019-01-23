@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#1d347f">
+    android:background="#132561">
 
     <ProgressBar
         android:id="@+id/progressBar"
