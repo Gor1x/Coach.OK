@@ -14,6 +14,7 @@ public class TrainingDescription extends AppCompatActivity {
     private TextView description;
     private Toolbar toolbar;
     private View view;
+    private int trainingId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,8 @@ public class TrainingDescription extends AppCompatActivity {
 
         description = findViewById(R.id.description_training);
         Intent intent = getIntent();
-        description.setText(intent.getStringExtra("TrainingName"));
+        trainingId = intent.getIntExtra("TrainingName", 0);
+        description.setText(String.valueOf(trainingId));
     }
 
     @Override
@@ -34,6 +36,10 @@ public class TrainingDescription extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), ExerciseChoosing.class);
             intent.putExtra("Info", "training name");
             startActivity(intent);
+        }
+        else if (item.getItemId() == R.id.delete_training)
+        {
+
         }
         return true;
 

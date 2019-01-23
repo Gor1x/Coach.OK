@@ -4,7 +4,6 @@ package com.example.fitnes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +23,7 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
     private Toolbar toolbar;
     private TrainingAdapter adapter;
     private View view;
+    final TrainingChoosing current = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +34,14 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
         setSupportActionBar(toolbar);
 
         list = findViewById(R.id.list);
-        final TrainingChoosing current = this;
+        list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+
         DBRoom.getAllTrainingDb(new DBRoom.OnCallbackAllTraining() {
             @Override
             public void onCallbackAllTraining(List<Training> trainings) {
                 trainingList = trainings;
                 adapter = new TrainingAdapter(trainingList, current);
-                adapter.notifyDataSetChanged();
-                list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 list.setAdapter(adapter);
             }
         });
@@ -60,14 +60,24 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add_training) {
-            Training training = new Training("Something");
-            trainingList.add(new Training("something"));
-            DBRoom.addTrainingDB(training, new DBRoom.OnCallbackComplete() {
+            DBRoom.addTrainingDB(new Training("Something"), new DBRoom.OnCallbackComplete() {
                 @Override
                 public void OmComplete() {
-                    adapter.notifyDataSetChanged();
+
+                    DBRoom.getAllTrainingDb(new DBRoom.OnCallbackAllTraining() {
+                        @Override
+                        public void onCallbackAllTraining(List<Training> trainings) {
+                            trainingList = trainings;
+                            //adapter = new TrainingAdapter(trainingList, current);
+                            adapter.setData(trainingList);
+                            adapter.notifyDataSetChanged();
+                            //list.setAdapter(adapter);
+                        }
+                    });
+
                 }
             });
+
         }
         return true;
 
@@ -83,7 +93,8 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
     @Override
     public void onListItemClick(int clickedItemIndex) {
         Intent intent = new Intent(getApplicationContext(), TrainingDescription.class);
-        intent.putExtra("TrainingName", String.valueOf(clickedItemIndex));
+        int id = trainingList.get(clickedItemIndex).getId();
+        intent.putExtra("TrainingName", id);
         startActivity(intent);
     }
 
