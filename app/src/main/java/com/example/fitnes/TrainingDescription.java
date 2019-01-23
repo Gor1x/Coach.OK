@@ -2,6 +2,7 @@ package com.example.fitnes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +15,7 @@ import java.util.List;
 
 import APIParse.Exercise;
 
-public class TrainingDescription extends AppCompatActivity implements ExerciseAdapter.ListItemClickListener{
+public class TrainingDescription extends AppCompatActivity implements ExerciseAdapter.ListItemClickListener {
 
     private Toolbar toolbar;
     private View view;
@@ -35,7 +36,6 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
         Intent intent = getIntent();
         trainingId = intent.getIntExtra("TrainingName", 0);
 
-
         DBRoom.getExerciseForTraining(new DBRoom.OnCallbackGetAllExercise() {
             @Override
             public void onCallback(List<Exercise> exercises) {
@@ -53,14 +53,12 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
             Intent intent = new Intent(getApplicationContext(), ExerciseChoosing.class);
             intent.putExtra("Info", "training name");
             startActivity(intent);
-        }
-        else if (item.getItemId() == R.id.delete_training) {
+        } else if (item.getItemId() == R.id.delete_training) {
             DBRoom.deleteTrainingForId(trainingId);
+            Snackbar.make(TrainingChoosing.getView(), "You have successfully deleted your training", Snackbar.LENGTH_LONG).show();
             finish();
-
         }
         return true;
-
     }
 
     @Override

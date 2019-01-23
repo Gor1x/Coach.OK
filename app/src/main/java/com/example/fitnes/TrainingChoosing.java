@@ -22,7 +22,7 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
     public List<Training> trainingList = new ArrayList<>();
     private Toolbar toolbar;
     private TrainingAdapter adapter;
-    private View view;
+    private static View view;
     final TrainingChoosing current = this;
 
     @Override
@@ -35,21 +35,25 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
 
         list = findViewById(R.id.list);
         list.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        adapter = new TrainingAdapter(trainingList, current);
+        list.setAdapter(adapter);
+
+        refreshData();
+    }
 
 
-        DBRoom.getAllTrainingDb(new DBRoom.OnCallbackAllTraining() {
-            @Override
-            public void onCallbackAllTraining(List<Training> trainings) {
-                trainingList = trainings;
-                adapter = new TrainingAdapter(trainingList, current);
-                list.setAdapter(adapter);
-            }
-        });
+    public static View getView() {
+        return view;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        refreshData();
+
+    }
+
+    private void refreshData(){
         DBRoom.getAllTrainingDb(new DBRoom.OnCallbackAllTraining() {
             @Override
             public void onCallbackAllTraining(List<Training> trainings) {
@@ -58,7 +62,6 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
                 adapter.notifyDataSetChanged();
             }
         });
-
     }
 
     @Override
@@ -74,19 +77,10 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add_training) {
-            DBRoom.addTrainingDB(new Training("Something"), new DBRoom.OnCallbackComplete() {
+            DBRoom.addTrainingDB(new Training("New Training"), new DBRoom.OnCallbackComplete() {
                 @Override
                 public void OmComplete() {
-
-                    DBRoom.getAllTrainingDb(new DBRoom.OnCallbackAllTraining() {
-                        @Override
-                        public void onCallbackAllTraining(List<Training> trainings) {
-                            trainingList = trainings;
-                            adapter.setData(trainingList);
-                            adapter.notifyDataSetChanged();
-                        }
-                    });
-
+                    refreshData();
                 }
             });
 
@@ -97,7 +91,6 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.choose_training_menu, menu);
-
         return true;
     }
 
@@ -108,6 +101,7 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
         intent.putExtra("TrainingName", id);
         startActivity(intent);
     }
+
 
 
 }
