@@ -10,20 +10,24 @@
     android:layout_marginRight="12dp"
     android:layout_marginBottom="4dp"
     app:cardElevation="4dp"
-    card_view:cardCornerRadius="15dp">
+    card_view:cardCornerRadius="15dp"
+    >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="92dp"
         android:gravity="center">
 
         <TextView
             android:id="@+id/name_training"
             android:layout_width="match_parent"
             android:layout_height="72dp"
-            android:layout_margin="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:textSize="18sp" />
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

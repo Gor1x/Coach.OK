@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TrainingDescription"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#e8eaf6">
 
     <TextView
         android:layout_width="match_parent"

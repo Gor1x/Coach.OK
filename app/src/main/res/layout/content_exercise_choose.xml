@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ExerciseChoosing"
-    tools:showIn="@layout/activity_exercise_choose">
+    tools:showIn="@layout/activity_exercise_choose"
+    android:background="#e8eaf6">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
