@@ -6,12 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".TrainingDescription"
     android:orientation="vertical"
-    android:background="#e8eaf6">
+    tools:showIn="@layout/activity_training_description">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:id="@+id/description_training"/>
+        android:id="@+id/list_description_exercise"/>
 
 </LinearLayout>

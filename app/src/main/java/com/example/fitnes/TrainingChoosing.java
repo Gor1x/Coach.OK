@@ -48,6 +48,20 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        DBRoom.getAllTrainingDb(new DBRoom.OnCallbackAllTraining() {
+            @Override
+            public void onCallbackAllTraining(List<Training> trainings) {
+                trainingList = trainings;
+                adapter.setData(trainingList);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
@@ -68,10 +82,8 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
                         @Override
                         public void onCallbackAllTraining(List<Training> trainings) {
                             trainingList = trainings;
-                            //adapter = new TrainingAdapter(trainingList, current);
                             adapter.setData(trainingList);
                             adapter.notifyDataSetChanged();
-                            //list.setAdapter(adapter);
                         }
                     });
 
@@ -80,7 +92,6 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
 
         }
         return true;
-
     }
 
     @Override
