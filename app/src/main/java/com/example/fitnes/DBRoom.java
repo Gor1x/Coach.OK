@@ -16,12 +16,9 @@ public class DBRoom {
         void onCallback(List<Exercise> exercises);
     }
 
+
     public interface OnCallbackComplete {
         void OmComplete();
-    }
-
-    public static List<Exercise> getExerciseList() {
-        return exerciseList;
     }
 
     public static void setExerciseList(List<Exercise> exerciseList) {
@@ -51,15 +48,17 @@ public class DBRoom {
             @Override
             protected Void doInBackground(Void... Void) {
                 for (Exercise i : exercises) {
-                    MyApplication.getInstance().getDataBase().getExerciseDao().insertExercise(i);
-                    List<Integer> list = i.getMuscles();
-                    for (Integer j : list) {
-                        try {
-                            MyApplication.getInstance().getDataBase().getMuscleExerciseDao().insert(new ExPlusMuscle(i.getId(), j));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
+                   if(i.getLanguage()== 2 && i.getName() != i.getNameOriginal()) {
+                       MyApplication.getInstance().getDataBase().getExerciseDao().insertExercise(i);
+                       List<Integer> list = i.getMuscles();
+                       for (Integer j : list) {
+                           try {
+                               MyApplication.getInstance().getDataBase().getMuscleExerciseDao().insert(new ExPlusMuscle(i.getId(), j));
+                           } catch (Exception e) {
+                               e.printStackTrace();
+                           }
+                       }
+                   }
                 }
                 return null;
             }
@@ -74,7 +73,7 @@ public class DBRoom {
         }
 
         @SuppressLint("StaticFieldLeak")
-        public static void getAllExerciseDB ( final OnCallbackGetAllExercise callback){
+        public static List<Exercise> getAllExerciseDB (final OnCallbackGetAllExercise callback){
             new AsyncTask<Void, Void, List<Exercise>>() {
                 @Override
                 protected List<Exercise> doInBackground(Void... voids) {
@@ -86,5 +85,6 @@ public class DBRoom {
                     callback.onCallback(exercises);
                 }
             }.execute();
+            return null;
         }
     }

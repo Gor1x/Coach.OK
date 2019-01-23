@@ -21,6 +21,7 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
     private RecyclerView exerciseRecView;
     private View viewExercise;
     private Toolbar toolbarExercise;
+    private ExerciseChoosing current;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +33,16 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
 
         exerciseRecView = findViewById(R.id.list_exercise);
         exerciseRecView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        exerciseList = DBRoom.getExerciseList();
+        current = this;
+        DBRoom.getAllExerciseDB(new DBRoom.OnCallbackGetAllExercise() {
+            @Override
+            public void onCallback(List<Exercise> exercises) {
+                exerciseList = exercises;
+                ExerciseAdapter adapter = new ExerciseAdapter(exerciseList, current);
+                exerciseRecView.setAdapter(adapter);
+            }
+        });
 
-        ExerciseAdapter adapter = new ExerciseAdapter(exerciseList, this);
-        exerciseRecView.setAdapter(adapter);
     }
 
     @Override

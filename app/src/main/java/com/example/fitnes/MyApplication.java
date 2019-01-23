@@ -16,6 +16,7 @@ public class MyApplication extends Application {
         return instance;
     }
 
+
     public DataBaseMuscleExercise getDataBase() {
         return dataBase;
     }
