@@ -15,6 +15,10 @@ public class DBRoom {
         void onCallback(List<Exercise> exercises);
     }
 
+    public interface OnCallbackAllTraining {
+        void onCallbackAllTraining(List<Training> trainings);
+    }
+
     public interface OnCallbackGetMuscleForId{
         void onCallbackM(List<Muscle> muscles);
     }
@@ -60,6 +64,23 @@ public class DBRoom {
             }
         }.execute();
     }
+
+    @SuppressLint("StaticFieldLeak")
+    public static void getAllTraining(final OnCallbackAllTraining callbackTr) {
+        new AsyncTask<Void, Void, List<Training>>() {
+            @Override
+            protected List<Training> doInBackground(Void... Void) {
+                return MyApplication.getInstance().getDataBase().getTrainingDao().getAllTraining();
+
+            }
+            @Override
+            protected void onPostExecute(List<Training> training) {
+                callbackTr.onCallbackAllTraining(training);
+            }
+        }.execute();
+    }
+
+
 
     @SuppressLint("StaticFieldLeak")
     public static void trainingDb(final Training training, final OnCallbackComplete callback) {
