@@ -11,6 +11,7 @@ import APIParse.MusclePackage.Muscle;
 public class DBRoom {
 
 
+
     public interface OnCallbackGetAllExercise {
         void onCallback(List<Exercise> exercises);
     }
@@ -66,7 +67,7 @@ public class DBRoom {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public static void getAllTraining(final OnCallbackAllTraining callbackTr) {
+    public static void getAllTrainingDb(final OnCallbackAllTraining callbackTr) {
         new AsyncTask<Void, Void, List<Training>>() {
             @Override
             protected List<Training> doInBackground(Void... Void) {
@@ -83,7 +84,7 @@ public class DBRoom {
 
 
     @SuppressLint("StaticFieldLeak")
-    public static void trainingDb(final Training training, final OnCallbackComplete callback) {
+    public static void addTrainingDB(final Training training, final OnCallbackComplete callback) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... Void) {
