@@ -29,20 +29,19 @@ public class ExerciseDescription extends AppCompatActivity {
         Intent intent = getIntent();
         Integer id = Integer.parseInt(intent.getStringExtra("Id"));
 
-
         DBRoom.getExerciseDB(new DBRoom.OnCallbackGetExerciseId() {
             @Override
             public void onCallbackE(Exercise exercises) {
-                description.setText(exercises.getDescription());
+                description.setText(exercises.getName() + "\n" + exercises.getDescription());
             }
         }, id);
 
         DBRoom.getMuscleForExercise(new DBRoom.OnCallbackGetMuscleForId() {
             @Override
             public void onCallbackM(List<Muscle> muscles) {
-               String m = "Muscle: \n";
+               String m = "Muscles: \n";
                for(Muscle i : muscles) {
-                   if(m != "Muscle: \n") m = m + ", ";
+                   if(m != "Muscles: \n") m = m + ", ";
                    m = m  + i.getName();
                }
                muscle.setText(m);

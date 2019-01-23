@@ -107,27 +107,44 @@ public class DBRoom {
             @Override
             protected Void doInBackground(Void... Void) {
                 for (Exercise i : exercises) {
-                   if(i.getLanguage()== 2 && i.getName().length() > 4 && i.getDescription().length() >= 20) {
-                       MyApplication.getInstance().getDataBase().getExerciseDao().insertExercise(i);
-                       List<Integer> list = i.getMuscles();
-                       for (Integer j : list) {
-                           MyApplication.getInstance().getDataBase().getMuscleExerciseDao().insert(new ExPlusMuscle(i.getId(), j));
-                       }
-                   }
+                    if(i.getLanguage()== 2 && i.getName().length() > 4 && i.getDescription().length() >= 20) {
+                        MyApplication.getInstance().getDataBase().getExerciseDao().insertExercise(i);
+                        List<Integer> list = i.getMuscles();
+                        for (Integer j : list) {
+                            MyApplication.getInstance().getDataBase().getMuscleExerciseDao().insert(new ExPlusMuscle(i.getId(), j));
+                        }
+                    }
                 }
                 return null;
             }
 
-                @Override
-                protected void onPostExecute (Void aVoid){
-                    callback.OmComplete();
-                }
-            }.
+            @Override
+            protected void onPostExecute (Void aVoid){
+                callback.OmComplete();
+            }
+        }.
 
-            execute();
-        }
+                execute();
+    }
 
-        @SuppressLint("StaticFieldLeak")
+
+    @SuppressLint("StaticFieldLeak")
+    public static void updateTrainingDB(final OnCallbackComplete callback, final Training training) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... Void) {
+                MyApplication.getInstance().getDataBase().getTrainingDao().updateTraining(training);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute (Void aVoid){
+                callback.OmComplete();
+            }
+        }.execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
         public static List<Exercise> getAllExerciseDB (final OnCallbackGetAllExercise callback){
             new AsyncTask<Void, Void, List<Exercise>>() {
                 @Override
@@ -142,6 +159,7 @@ public class DBRoom {
             }.execute();
             return null;
         }
+
         @SuppressLint("StaticFieldLeak")
         public static Exercise getMuscleForExercise (final OnCallbackGetMuscleForId callbackM, final int id){
             new AsyncTask<Void, Void, List<Muscle>>() {
