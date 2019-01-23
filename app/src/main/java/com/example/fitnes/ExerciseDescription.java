@@ -15,7 +15,6 @@ import Room.DaoTraining;
 
 public class ExerciseDescription extends AppCompatActivity {
 
-    private TextView name;
     private TextView description;
     private TextView muscle;
 
@@ -23,7 +22,6 @@ public class ExerciseDescription extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_decription);
-        name = findViewById(R.id.name);
         description = findViewById(R.id.description);
         muscle = findViewById(R.id.muscle);
         Intent intent = getIntent();
