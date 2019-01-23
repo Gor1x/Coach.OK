@@ -16,6 +16,7 @@ public class ExerciseDescription extends AppCompatActivity {
         setContentView(R.layout.activity_exercise_decription);
         description = findViewById(R.id.description_exercise);
         Intent intent = getIntent();
-        description.setText(intent.getStringExtra("Id"));
+        Integer id = Integer.parseInt(intent.getStringExtra("Id"));
+
     }
 }

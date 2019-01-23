@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,16 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
             }
         });
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
+            Toast.makeText(getApplicationContext(), "ХА-ХА-ХА",Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

@@ -25,9 +25,10 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         void onListItemClick(int clickedItemIndex);
     }
 
+
     @NonNull
     @Override
-    public ExerciseAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         return new ViewHolder(LayoutInflater.
                 from(parent.getContext()).
                 inflate(R.layout.item_exercise,
