@@ -49,7 +49,7 @@ public class APIHelper {
                 String next;
 
                 do {
-                    Log.d("My tag", String.valueOf(page));
+                    Log.d("My tag page", String.valueOf(page));
                     call = apiService.getPost(page, "json");
                     try {
                         response = call.execute();

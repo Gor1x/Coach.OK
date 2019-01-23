@@ -61,6 +61,6 @@ public class MainActivity extends MvpAppCompatActivity implements IMainView {
     @Override
     public void error() {
         setProgress(false);
-        Toast.makeText(getApplicationContext(), "JSON НЕ СКАЧАН", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Internet problems", Toast.LENGTH_LONG).show();
     }
 }

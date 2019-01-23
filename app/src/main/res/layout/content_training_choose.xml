@@ -9,10 +9,10 @@
     tools:showIn="@layout/activity_training_choose">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:id="@+id/list">
+        android:layout_margin="16dp">
 
     </android.support.v7.widget.RecyclerView>
 
