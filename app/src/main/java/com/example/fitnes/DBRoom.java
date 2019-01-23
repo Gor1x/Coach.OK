@@ -250,7 +250,32 @@ public class DBRoom {
         }.execute();
     }
 
+    public static void deleteAllExerciseOfTraining(final Training training){
+        getExerciseForTraining(new OnCallbackGetAllExercise() {
+            @Override
+            public void onCallback(List<Exercise> exercises) {
+                for(Exercise i : exercises)
+                deleteExerciseOfTraining(new OnCallbackComplete() {
+                    @Override
+                    public void OmComplete() {}
+                },  training, i);
+            }
+        }, training.getId());
+    }
 
-
+    @SuppressLint("StaticFieldLeak")
+    public static void deleteExerciseOfTraining (final OnCallbackComplete callback, final Training training, final Exercise exercise){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                MyApplication.getInstance().getDataBase().getTrainingExerciseDao().deleteExerciseOfTraining(new TrainingPlusExercise(training.getId(), exercise.getId()));
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void avoid) {
+                callback.OmComplete();
+            }
+        }.execute();
+    }
 
 }

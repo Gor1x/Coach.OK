@@ -1,6 +1,7 @@
 package Room;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -23,4 +24,6 @@ public interface DaoTrainingExercise {
     @Query("SELECT * FROM dbTraining INNER JOIN tr_plus_ex ON dbTraining.id=tr_plus_ex.trId WHERE tr_plus_ex.exId=:exId")
     List<Muscle> getTrainingForExeroise(final int exId);
 
+    @Delete
+    void deleteExerciseOfTraining(TrainingPlusExercise trainingPlusExercise);
 }
