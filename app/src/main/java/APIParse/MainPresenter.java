@@ -15,7 +15,7 @@ import APIParse.MusclePackage.Muscle;
 @InjectViewState
 public class MainPresenter extends MvpPresenter<IMainView> {
 
-    public void downloadInfo(MainPresenter presenter){
+    public void downloadInfo(){
        DBRoom.getAllExerciseDB(new DBRoom.OnCallbackGetAllExercise() {
            @Override
            public void onCallback(List<Exercise> exercises) {
