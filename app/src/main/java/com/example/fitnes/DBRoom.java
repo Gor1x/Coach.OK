@@ -206,17 +206,18 @@ public class DBRoom {
 
 
     public static void deleteTrainingForId(final int id) {
-        final Training[] training = new Training[1];
+
         getTrainingForId(new OnCallbackTraining() {
             @Override
-            public void onCallbackTraining(Training trainings) {
-                training[0] = trainings;
+            public void onCallbackTraining(Training training) {
+
+                deleteTrainingDB(new OnCallbackComplete() {
+                    @Override
+                    public void OmComplete() { }
+                }, training);
             }
         }, id);
-        deleteTrainingDB(new OnCallbackComplete() {
-            @Override
-            public void OmComplete() { }
-        }, training[0]);
+
     }
 
     @SuppressLint("StaticFieldLeak")

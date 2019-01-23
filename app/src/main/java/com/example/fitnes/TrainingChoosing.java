@@ -68,10 +68,8 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
                         @Override
                         public void onCallbackAllTraining(List<Training> trainings) {
                             trainingList = trainings;
-                            //adapter = new TrainingAdapter(trainingList, current);
                             adapter.setData(trainingList);
                             adapter.notifyDataSetChanged();
-                            //list.setAdapter(adapter);
                         }
                     });
 
@@ -80,7 +78,6 @@ public class TrainingChoosing extends AppCompatActivity implements TrainingAdapt
 
         }
         return true;
-
     }
 
     @Override

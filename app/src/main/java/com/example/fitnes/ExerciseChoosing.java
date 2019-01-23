@@ -32,6 +32,7 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
         setSupportActionBar(toolbarExercise);
         exerciseRecView = findViewById(R.id.list_exercise);
         exerciseRecView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
         current = this;
         DBRoom.getAllExerciseDB(new DBRoom.OnCallbackGetAllExercise() {
             @Override
