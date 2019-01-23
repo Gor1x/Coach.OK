@@ -19,6 +19,10 @@ public class DBRoom {
         void onCallbackAllTraining(List<Training> trainings);
     }
 
+    public interface OnCallbackTraining {
+        void onCallbackTraining(Training trainings);
+    }
+
     public interface OnCallbackGetMuscleForId{
         void onCallbackM(List<Muscle> muscles);
     }
@@ -200,6 +204,21 @@ public class DBRoom {
         return null;
     }
 
+
+    public static void deleteTrainingForId(final int id) {
+        final Training[] training = new Training[1];
+        getTrainingForId(new OnCallbackTraining() {
+            @Override
+            public void onCallbackTraining(Training trainings) {
+                training[0] = trainings;
+            }
+        }, id);
+        deleteTrainingDB(new OnCallbackComplete() {
+            @Override
+            public void OmComplete() { }
+        }, training[0]);
+    }
+
     @SuppressLint("StaticFieldLeak")
     public static void deleteTrainingDB (final OnCallbackComplete callback, final Training training){
         new AsyncTask<Void, Void, Void>() {
@@ -211,6 +230,21 @@ public class DBRoom {
             @Override
             protected void onPostExecute(Void avoid) {
                 callback.OmComplete();
+            }
+        }.execute();
+    }
+
+
+    @SuppressLint("StaticFieldLeak")
+    public static void getTrainingForId (final OnCallbackTraining callback, final int id){
+        new AsyncTask<Void, Void, Training>() {
+            @Override
+            protected Training doInBackground(Void... voids) {
+                return MyApplication.getInstance().getDataBase().getTrainingDao().getTraining(id);
+            }
+            @Override
+            protected void onPostExecute(Training training) {
+                callback.onCallbackTraining(training);
             }
         }.execute();
     }
