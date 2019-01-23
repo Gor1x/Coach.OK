@@ -48,7 +48,7 @@ public class DBRoom {
             @Override
             protected Void doInBackground(Void... Void) {
                 for (Exercise i : exercises) {
-                   if(i.getLanguage()== 2 && i.getName() != i.getNameOriginal()) {
+                   if(i.getLanguage()== 2 && i.getName().length() > 4 && i.getDescription().length() >= 20) {
                        MyApplication.getInstance().getDataBase().getExerciseDao().insertExercise(i);
                        List<Integer> list = i.getMuscles();
                        for (Integer j : list) {
