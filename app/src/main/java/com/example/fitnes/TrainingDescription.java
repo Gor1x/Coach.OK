@@ -57,6 +57,8 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
             DBRoom.deleteTrainingForId(trainingId);
             Snackbar.make(TrainingChoosing.getView(), "You have successfully deleted your training", Snackbar.LENGTH_LONG).show();
             finish();
+        }else if(item.getItemId() == R.id.change_name){
+
         }
         return true;
     }
