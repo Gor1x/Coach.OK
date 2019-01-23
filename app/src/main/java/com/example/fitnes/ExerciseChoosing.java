@@ -30,7 +30,6 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
         viewExercise = findViewById(R.id.coordinator_exercise);
         toolbarExercise = findViewById(R.id.toolbar_exercise);
         setSupportActionBar(toolbarExercise);
-
         exerciseRecView = findViewById(R.id.list_exercise);
         exerciseRecView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         current = this;
