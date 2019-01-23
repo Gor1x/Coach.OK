@@ -24,5 +24,4 @@ public interface DaoTraining {
 
     @Delete
     void deleteTraining(Training training);
-
 }
