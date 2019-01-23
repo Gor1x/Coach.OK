@@ -268,7 +268,7 @@ public class DBRoom {
         }.execute();
     }
 
-    public static void deleteAllExerciseOfTraining(final Training training){
+    public static void deleteAllExerciseOfTraining(final int id){
         getExerciseForTraining(new OnCallbackGetAllExercise() {
             @Override
             public void onCallback(List<Exercise> exercises) {
@@ -276,17 +276,17 @@ public class DBRoom {
                 deleteExerciseOfTraining(new OnCallbackComplete() {
                     @Override
                     public void OmComplete() {}
-                },  training, i);
+                },  id, i);
             }
-        }, training.getId());
+        }, id);
     }
 
     @SuppressLint("StaticFieldLeak")
-    public static void deleteExerciseOfTraining (final OnCallbackComplete callback, final Training training, final Exercise exercise){
+    public static void deleteExerciseOfTraining (final OnCallbackComplete callback, final int id, final Exercise exercise){
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                MyApplication.getInstance().getDataBase().getTrainingExerciseDao().deleteExerciseOfTraining(new TrainingPlusExercise(training.getId(), exercise.getId()));
+                MyApplication.getInstance().getDataBase().getTrainingExerciseDao().deleteExerciseOfTraining(new TrainingPlusExercise(id, exercise.getId()));
                 return null;
             }
             @Override
