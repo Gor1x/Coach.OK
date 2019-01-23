@@ -19,7 +19,7 @@ public class MainPresenter extends MvpPresenter<IMainView> {
        DBRoom.getAllExerciseDB(new DBRoom.OnCallbackGetAllExercise() {
            @Override
            public void onCallback(List<Exercise> exercises) {
-               if (exercises == null)
+               if (exercises == null || exercises.size() == 0)
                    startDownload();
                else
                    goInTrainingChoosing();
