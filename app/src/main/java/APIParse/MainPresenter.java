@@ -23,7 +23,6 @@ public class MainPresenter extends MvpPresenter<IMainView> {
                if (exercises == null || exercises.size() == 0)
                    startDownload();
                else {
-                   DBRoom.setExerciseList(exercises);
                    goInTrainingChoosing();
                }
            }
@@ -68,11 +67,9 @@ public class MainPresenter extends MvpPresenter<IMainView> {
                 DBRoom.exerciseDB(response, new DBRoom.OnCallbackComplete() {
                     @Override
                     public void OmComplete() {
-                        DBRoom.setExerciseList(response); //Ответ -> лист упражнений
                         goInTrainingChoosing();
                     }
-                }); //Пуш ответа в базу данных
-
+                });
             }
 
             @Override

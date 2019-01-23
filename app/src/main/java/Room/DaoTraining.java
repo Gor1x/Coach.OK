@@ -12,7 +12,7 @@ import java.util.List;
 
 @Dao
 public interface DaoTraining {
-/*
+
     @Query("SELECT * FROM dbTraining")
     List<Training> getAllTraining();
 
@@ -24,5 +24,5 @@ public interface DaoTraining {
 
     @Delete
     void deleteTraining(Training training);
-    */
+
 }

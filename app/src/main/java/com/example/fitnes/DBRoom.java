@@ -10,7 +10,6 @@ import APIParse.MusclePackage.Muscle;
 
 public class DBRoom {
 
-    private static List<Exercise> exerciseList = null;
 
     public interface OnCallbackGetAllExercise {
         void onCallback(List<Exercise> exercises);
@@ -24,14 +23,10 @@ public class DBRoom {
         void onCallbackE(Exercise exercises);
     }
 
-
     public interface OnCallbackComplete {
         void OmComplete();
     }
 
-    public static void setExerciseList(List<Exercise> exerciseList) {
-        DBRoom.exerciseList = exerciseList;
-    }
 
     @SuppressLint("StaticFieldLeak")
     public static void musclesDB(final List<Muscle> muscles, final OnCallbackComplete callback) {
@@ -49,7 +44,7 @@ public class DBRoom {
             }
         }.execute();
     }
-/*
+
     @SuppressLint("StaticFieldLeak")
     public static void trainingAndExerciseDB(final List<Exercise> exercises, final Training training, final OnCallbackComplete callback) {
         new AsyncTask<Void, Void, Void>() {
@@ -80,7 +75,7 @@ public class DBRoom {
             }
         }.execute();
     }
-*/
+
     @SuppressLint("StaticFieldLeak")
     public static void exerciseDB(final List<Exercise> exercises, final OnCallbackComplete callback) {
         new AsyncTask<Void, Void, Void>() {
@@ -168,7 +163,7 @@ public class DBRoom {
             return null;
         }
 
-/*
+
         @SuppressLint("StaticFieldLeak")
         public static Exercise getExerciseForTraining (final OnCallbackGetAllExercise callbackE, final int id){
             new AsyncTask<Void, Void, List<Exercise>>() {
@@ -183,7 +178,7 @@ public class DBRoom {
             }.execute();
             return null;
         }
-*/
+
 
 
 }
