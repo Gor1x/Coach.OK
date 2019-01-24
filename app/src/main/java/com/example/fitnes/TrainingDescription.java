@@ -58,9 +58,9 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
             @Override
             public void onCallbackTraining(Training trainings) {
                 training = trainings;
+
             }
         }, trainingID);
-        //actionbar.setTitle(training.getName());
 
         adapter = new ExerciseAdapterDescription(new ArrayList<Exercise>(), current);
         recyclerView.setAdapter(adapter);
@@ -87,6 +87,7 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
             }
         }, trainingID);
 
+
     }
 
     @Override
@@ -109,19 +110,17 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
             final EditText userInput = (EditText) promptsView.findViewById(R.id.input_text);
             mDialogBuilder
                     .setCancelable(false)
-                    .setPositiveButton("OK",
+                    .setPositiveButton("Ok",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    //Вводим текст и отображаем в строке ввода на основном экране:
                                     String userText = userInput.getText().toString();
-                                    actionbar.setTitle(userText);
                                     training.setName(userText);
                                     DBRoom.updateTrainingDB(new DBRoom.OnCallbackComplete() {
                                         @Override
                                         public void OmComplete() { }  }, training);
                                 }
                             })
-                    .setNegativeButton("Отмена",
+                    .setNegativeButton("Сancel",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
                                     dialog.cancel();
