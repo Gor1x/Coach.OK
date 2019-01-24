@@ -62,7 +62,6 @@ public class DBRoom {
                     MyApplication.getInstance().getDataBase().getTrainingExerciseDao().insert(new TrainingPlusExercise(training.getId(), i.getId()));
                 return null;
             }
-
             @Override
             protected void onPostExecute(Void aVoid) {
                 callback.OmComplete();
@@ -299,7 +298,6 @@ public class DBRoom {
                 MyApplication.getInstance().getDataBase().getTrainingExerciseDao().deleteExerciseOfTraining(new TrainingPlusExercise(id, exercise.getId()));
                 return null;
             }
-
             @Override
             protected void onPostExecute(Void avoid) {
                 callback.OmComplete();
