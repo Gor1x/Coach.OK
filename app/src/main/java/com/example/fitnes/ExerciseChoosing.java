@@ -11,18 +11,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import APIParse.Exercise;
 
-public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapter.ListItemClickListener{
+public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapter.ListItemClickListener {
 
-    private List<Exercise> exerciseList;
+    private List<Exercise> exerciseList = new ArrayList<>();
     private RecyclerView exerciseRecView;
     private View viewExercise;
     private Toolbar toolbarExercise;
     private ExerciseChoosing current;
-    private List<Exercise> inTraining;
+    private List<Exercise> inTraining = new ArrayList<>();
     private List<Exercise> chosen;
     private ExerciseAdapter adapter;
     private int trainingID;
@@ -40,6 +41,8 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
 
         Intent intent = getIntent();
         trainingID = intent.getIntExtra("ID", 0);
+
+        adapter = new ExerciseAdapter(exerciseList, inTraining, current);
 
         DBRoom.getExerciseForTraining(new DBRoom.OnCallbackGetAllExercise() {
             @Override
@@ -60,37 +63,43 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
     }
 
 
-
     @Override
     public void onListItemClick(int clickedItemIndex) {
         Exercise exercise = exerciseList.get(clickedItemIndex);
-        if (chosen.contains(exercise)){
+        if (chosen.contains(exercise)) {
             chosen.remove(exercise);
         } else {
             chosen.add(exercise);
         }
+        adapter.setData(chosen);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.save_training) {
-            Snackbar.make(viewExercise, "You have saved training", Snackbar.LENGTH_LONG).show();
-
             DBRoom.getTrainingForId(new DBRoom.OnCallbackTraining() {
                 @Override
                 public void onCallbackTraining(Training trainings) {
 
-                    synchronized (ExerciseChoosing.class) {
-                        DBRoom.deleteAllExerciseOfTraining(trainingID);
-                        DBRoom.trainingAndExerciseDB(chosen, trainings, new DBRoom.OnCallbackComplete() {
-                            @Override
-                            public void OmComplete() {
-                                inTraining = chosen;
-                                adapter.setData(inTraining);
-                                adapter.notifyDataSetChanged();
-                            }
-                        });
-                    }
+                    final Training training = trainings;
+                    DBRoom.deleteAllExerciseOfTraining(new DBRoom.OnCallbackComplete() {
+                        @Override
+                        public void OmComplete() {
+
+                            DBRoom.trainingAndExerciseDB(chosen, training, new DBRoom.OnCallbackComplete() {
+                                @Override
+                                public void OmComplete() {
+                                    inTraining = chosen;
+                                    adapter.setData(inTraining);
+                                    adapter.notifyDataSetChanged();
+                                    Snackbar.make(TrainingDescription.getView(), "You have saved your training", Snackbar.LENGTH_LONG).show();
+                                    finish();
+                                }
+                            });
+                        }
+                    }, trainingID);
+
                 }
             }, trainingID);
         }

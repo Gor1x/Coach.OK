@@ -1,14 +1,13 @@
 package com.example.fitnes;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import APIParse.Exercise;
@@ -16,20 +15,17 @@ import APIParse.Exercise;
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder> {
 
     private List<Exercise> data;
-    private ArrayList<Exercise> inTraining;
     private List<Exercise> chosen;
     private ListItemClickListener mOnClickListener;
 
-    public ExerciseAdapter(List<Exercise> data, List<Exercise> inTraining, ListItemClickListener listener) {
+    public ExerciseAdapter(List<Exercise> data, List<Exercise> chosen, ListItemClickListener listener) {
         this.data = data;
-        this.inTraining = (ArrayList<Exercise>)inTraining;
-        chosen = this.inTraining;
+        this.chosen = chosen;
         mOnClickListener = listener;
     }
 
-    public void setData(List<Exercise> inTraining){
-        this.inTraining = (ArrayList<Exercise>)inTraining;
-        chosen = inTraining;
+    public void setData(List<Exercise> chosen){
+        this.chosen = chosen;
     }
 
     public interface ListItemClickListener {
@@ -46,21 +42,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                         false));
     }
 
-    boolean checkExerciseInArray(ArrayList<Exercise> list, Exercise exercise){
-        for (Exercise cur : list){
-            if (cur.getId() == exercise.getId())
-                return true;
-        }
-        return false;
-    }
-
-    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull ExerciseAdapter.ViewHolder holder, int position) {
         Exercise exercise = data.get(position);
         holder.name.setText(exercise.getName());
-        if (checkExerciseInArray(inTraining, exercise))
-            holder.name.setText(holder.name.getText().toString() + " chosen");
+        if (chosen.contains(exercise))
+            holder.cardView.setBackgroundColor(0xAAC5CAE9);
     }
 
     @Override
@@ -72,11 +59,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
 
         private View view;
         private TextView name;
+        private ConstraintLayout cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
             name = view.findViewById(R.id.name);
+            cardView = view.findViewById(R.id.card_view);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

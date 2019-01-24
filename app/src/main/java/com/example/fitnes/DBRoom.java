@@ -232,13 +232,20 @@ public class DBRoom {
 
         getTrainingForId(new OnCallbackTraining() {
             @Override
-            public void onCallbackTraining(Training training) {
+            public void onCallbackTraining(final Training training) {
 
-                deleteTrainingDB(new OnCallbackComplete() {
+                final Training training1 = training;
+                deleteAllExerciseOfTraining(new OnCallbackComplete() {
                     @Override
                     public void OmComplete() {
+                        deleteTrainingDB(new OnCallbackComplete() {
+                            @Override
+                            public void OmComplete() {
+
+                            }
+                        }, training1);
                     }
-                }, training);
+                }, training1.getId());
             }
         }, id);
 
@@ -276,7 +283,7 @@ public class DBRoom {
         }.execute();
     }
 
-    public static void deleteAllExerciseOfTraining(final int id) {
+    public static void deleteAllExerciseOfTraining(final OnCallbackComplete cb, final int id) {
         getExerciseForTraining(new OnCallbackGetAllExercise() {
             @Override
             public void onCallback(List<Exercise> exercises) {
@@ -286,8 +293,10 @@ public class DBRoom {
                         public void OmComplete() {
                         }
                     }, id, i);
+                cb.OmComplete();
             }
         }, id);
+
     }
 
     @SuppressLint("StaticFieldLeak")

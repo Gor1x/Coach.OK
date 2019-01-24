@@ -67,7 +67,13 @@ public class Exercise {
         this.id = 0;
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Exercise){
+            return this.getId().equals(((Exercise) obj).getId());
+        }
+        return false;
+    }
 
     public void setId(Integer id) {
         this.id = id;

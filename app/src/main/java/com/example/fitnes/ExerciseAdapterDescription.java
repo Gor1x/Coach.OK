@@ -20,6 +20,10 @@ public class ExerciseAdapterDescription extends RecyclerView.Adapter<ExerciseAda
         mOnClickListener = listener;
     }
 
+    public void setData(List<Exercise> data){
+        this.data = data;
+    }
+
     public interface ListItemClickListener{
         void onListItemClick(int clickedItemIndex);
     }

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import APIParse.Exercise;
@@ -24,11 +25,17 @@ import APIParse.Exercise;
 public class TrainingDescription extends AppCompatActivity implements ExerciseAdapterDescription.ListItemClickListener {
 
     private Toolbar toolbar;
-    private View view;
+    private static View view;
     private int trainingID;
     private RecyclerView recyclerView;
     private List<Exercise> exerciseList;
     private final TrainingDescription current = this;
+    private ExerciseAdapterDescription adapter;
+
+    public static View getView() {
+        return view;
+    }
+
     private final Context context = this;
     private LayoutInflater li;
     private View promptsView;
@@ -38,7 +45,6 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training_description);
-
         view = findViewById(R.id.coordinator_training_description);
         toolbar = findViewById(R.id.toolbar_training_description);
         setSupportActionBar(toolbar);
@@ -56,12 +62,28 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
         }, trainingID);
         //actionbar.setTitle(training.getName());
 
+        adapter = new ExerciseAdapterDescription(new ArrayList<Exercise>(), current);
+        recyclerView.setAdapter(adapter);
+
         DBRoom.getExerciseForTraining(new DBRoom.OnCallbackGetAllExercise() {
             @Override
             public void onCallback(List<Exercise> exercises) {
                 exerciseList = exercises;
-                ExerciseAdapterDescription adapter = new ExerciseAdapterDescription(exercises, current);
-                recyclerView.setAdapter(adapter);
+                adapter.setData(exercises);
+                adapter.notifyDataSetChanged();
+            }
+        }, trainingID);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DBRoom.getExerciseForTraining(new DBRoom.OnCallbackGetAllExercise() {
+            @Override
+            public void onCallback(List<Exercise> exercises) {
+                exerciseList = exercises;
+                adapter.setData(exercises);
+                adapter.notifyDataSetChanged();
             }
         }, trainingID);
 
@@ -78,7 +100,6 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
             DBRoom.deleteTrainingForId(trainingID);
             Snackbar.make(TrainingChoosing.getView(), "You have successfully deleted your training", Snackbar.LENGTH_LONG).show();
             finish();
-
         }else if(item.getItemId() == R.id.change_name){
 
             li = LayoutInflater.from(context);
