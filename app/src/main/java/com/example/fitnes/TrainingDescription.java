@@ -1,15 +1,21 @@
 package com.example.fitnes;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import java.util.List;
 
@@ -23,11 +29,16 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
     private RecyclerView recyclerView;
     private List<Exercise> exerciseList;
     private final TrainingDescription current = this;
-
+    private final Context context = this;
+    private LayoutInflater li;
+    private View promptsView;
+    private ActionBar actionbar;
+    private Training training;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_training_description);
+
         view = findViewById(R.id.coordinator_training_description);
         toolbar = findViewById(R.id.toolbar_training_description);
         setSupportActionBar(toolbar);
@@ -35,6 +46,15 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         Intent intent = getIntent();
         trainingID = intent.getIntExtra("TrainingName", 0);
+        actionbar = getSupportActionBar();
+
+        DBRoom.getTrainingForId(new DBRoom.OnCallbackTraining() {
+            @Override
+            public void onCallbackTraining(Training trainings) {
+                training = trainings;
+            }
+        }, trainingID);
+        //actionbar.setTitle(training.getName());
 
         DBRoom.getExerciseForTraining(new DBRoom.OnCallbackGetAllExercise() {
             @Override
@@ -58,8 +78,37 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
             DBRoom.deleteTrainingForId(trainingID);
             Snackbar.make(TrainingChoosing.getView(), "You have successfully deleted your training", Snackbar.LENGTH_LONG).show();
             finish();
+
         }else if(item.getItemId() == R.id.change_name){
 
+            li = LayoutInflater.from(context);
+            promptsView = li.inflate(R.layout.activity_alert_dialog, null);
+            AlertDialog.Builder mDialogBuilder = new AlertDialog.Builder(context);
+            mDialogBuilder.setView(promptsView);
+            final EditText userInput = (EditText) promptsView.findViewById(R.id.input_text);
+            mDialogBuilder
+                    .setCancelable(false)
+                    .setPositiveButton("OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //Вводим текст и отображаем в строке ввода на основном экране:
+                                    String userText = userInput.getText().toString();
+                                    actionbar.setTitle(userText);
+                                    training.setName(userText);
+                                    DBRoom.updateTrainingDB(new DBRoom.OnCallbackComplete() {
+                                        @Override
+                                        public void OmComplete() { }  }, training);
+                                }
+                            })
+                    .setNegativeButton("Отмена",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+            AlertDialog alertDialog = mDialogBuilder.create();
+            alertDialog.show();
         }
         return true;
     }
