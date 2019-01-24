@@ -67,6 +67,8 @@ public class Exercise {
         this.id = 0;
     }
 
+
+
     public void setId(Integer id) {
         this.id = id;
     }

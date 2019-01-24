@@ -15,11 +15,11 @@ import java.util.List;
 
 import APIParse.Exercise;
 
-public class TrainingDescription extends AppCompatActivity implements ExerciseAdapter.ListItemClickListener {
+public class TrainingDescription extends AppCompatActivity implements ExerciseAdapterDescription.ListItemClickListener {
 
     private Toolbar toolbar;
     private View view;
-    private int trainingId;
+    private int trainingID;
     private RecyclerView recyclerView;
     private List<Exercise> exerciseList;
     private final TrainingDescription current = this;
@@ -34,16 +34,16 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
         recyclerView = findViewById(R.id.list_description_exercise);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         Intent intent = getIntent();
-        trainingId = intent.getIntExtra("TrainingName", 0);
+        trainingID = intent.getIntExtra("TrainingName", 0);
 
         DBRoom.getExerciseForTraining(new DBRoom.OnCallbackGetAllExercise() {
             @Override
             public void onCallback(List<Exercise> exercises) {
                 exerciseList = exercises;
-                ExerciseAdapter adapter = new ExerciseAdapter(exercises, current);
+                ExerciseAdapterDescription adapter = new ExerciseAdapterDescription(exercises, current);
                 recyclerView.setAdapter(adapter);
             }
-        }, trainingId);
+        }, trainingID);
 
     }
 
@@ -51,10 +51,11 @@ public class TrainingDescription extends AppCompatActivity implements ExerciseAd
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.edit_training) {
             Intent intent = new Intent(getApplicationContext(), ExerciseChoosing.class);
-            intent.putExtra("Info", "training name");
+            intent.putExtra("ID", trainingID);
             startActivity(intent);
+
         } else if (item.getItemId() == R.id.delete_training) {
-            DBRoom.deleteTrainingForId(trainingId);
+            DBRoom.deleteTrainingForId(trainingID);
             Snackbar.make(TrainingChoosing.getView(), "You have successfully deleted your training", Snackbar.LENGTH_LONG).show();
             finish();
         }else if(item.getItemId() == R.id.change_name){

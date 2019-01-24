@@ -1,6 +1,5 @@
 package com.example.fitnes;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,31 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import APIParse.Exercise;
 
-public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder> {
+public class ExerciseAdapterDescription extends RecyclerView.Adapter<ExerciseAdapterDescription.ViewHolder> {
 
     private List<Exercise> data;
-    private ArrayList<Exercise> inTraining;
-    private List<Exercise> chosen;
     private ListItemClickListener mOnClickListener;
-
-    public ExerciseAdapter(List<Exercise> data, List<Exercise> inTraining, ListItemClickListener listener) {
+    public ExerciseAdapterDescription(List<Exercise> data, ListItemClickListener listener){
         this.data = data;
-        this.inTraining = (ArrayList<Exercise>)inTraining;
-        chosen = this.inTraining;
         mOnClickListener = listener;
     }
 
-    public void setData(List<Exercise> inTraining){
-        this.inTraining = (ArrayList<Exercise>)inTraining;
-        chosen = inTraining;
-    }
-
-    public interface ListItemClickListener {
+    public interface ListItemClickListener{
         void onListItemClick(int clickedItemIndex);
     }
 
@@ -46,22 +34,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
                         false));
     }
 
-    boolean checkExerciseInArray(ArrayList<Exercise> list, Exercise exercise){
-        for (Exercise cur : list){
-            if (cur.getId() == exercise.getId())
-                return true;
-        }
-        return false;
-    }
-
-    @SuppressLint("ResourceAsColor")
     @Override
-    public void onBindViewHolder(@NonNull ExerciseAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Exercise exercise = data.get(position);
         holder.name.setText(exercise.getName());
-        if (checkExerciseInArray(inTraining, exercise))
-            holder.name.setText(holder.name.getText().toString() + " chosen");
     }
+
 
     @Override
     public int getItemCount() {
@@ -72,7 +50,6 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
 
         private View view;
         private TextView name;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;

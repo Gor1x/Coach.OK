@@ -22,6 +22,10 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
     private View viewExercise;
     private Toolbar toolbarExercise;
     private ExerciseChoosing current;
+    private List<Exercise> inTraining;
+    private List<Exercise> chosen;
+    private ExerciseAdapter adapter;
+    private int trainingID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +38,61 @@ public class ExerciseChoosing extends AppCompatActivity implements ExerciseAdapt
         exerciseRecView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         current = this;
 
+        Intent intent = getIntent();
+        trainingID = intent.getIntExtra("ID", 0);
 
-        DBRoom.getAllExerciseDB(new DBRoom.OnCallbackGetAllExercise() {
+        DBRoom.getExerciseForTraining(new DBRoom.OnCallbackGetAllExercise() {
             @Override
             public void onCallback(List<Exercise> exercises) {
-                exerciseList = exercises;
-                ExerciseAdapter adapter = new ExerciseAdapter(exerciseList, current);
-                exerciseRecView.setAdapter(adapter);
+                inTraining = exercises;
+                chosen = inTraining;
+                DBRoom.getAllExerciseDB(new DBRoom.OnCallbackGetAllExercise() {
+                    @Override
+                    public void onCallback(List<Exercise> exercises) {
+                        exerciseList = exercises;
+                        adapter = new ExerciseAdapter(exerciseList, inTraining, current);
+                        exerciseRecView.setAdapter(adapter);
+                    }
+                });
             }
-        });
+        }, trainingID);
 
     }
+
+
 
     @Override
     public void onListItemClick(int clickedItemIndex) {
         Exercise exercise = exerciseList.get(clickedItemIndex);
-        Intent intent = new Intent(getApplicationContext(), ExerciseDescription.class);
-        intent.putExtra("Id", Integer.toString(exercise.getId())); //Открытие активности с exercise description
-        startActivity(intent);
+        if (chosen.contains(exercise)){
+            chosen.remove(exercise);
+        } else {
+            chosen.add(exercise);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.save_training) {
             Snackbar.make(viewExercise, "You have saved training", Snackbar.LENGTH_LONG).show();
+
+            DBRoom.getTrainingForId(new DBRoom.OnCallbackTraining() {
+                @Override
+                public void onCallbackTraining(Training trainings) {
+
+                    synchronized (ExerciseChoosing.class) {
+                        DBRoom.deleteAllExerciseOfTraining(trainingID);
+                        DBRoom.trainingAndExerciseDB(chosen, trainings, new DBRoom.OnCallbackComplete() {
+                            @Override
+                            public void OmComplete() {
+                                inTraining = chosen;
+                                adapter.setData(inTraining);
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                }
+            }, trainingID);
         }
         return true;
 
