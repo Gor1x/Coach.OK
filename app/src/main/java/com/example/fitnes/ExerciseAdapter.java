@@ -48,6 +48,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         holder.name.setText(exercise.getName());
         if (chosen.contains(exercise))
             holder.cardView.setBackgroundColor(0xAAC5CAE9);
+        else
+            holder.cardView.setBackgroundColor(0x00FFFFFF);
     }
 
     @Override
