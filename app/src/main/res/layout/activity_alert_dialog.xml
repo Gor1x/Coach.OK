@@ -11,7 +11,7 @@
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Введите название тренировки:"
+        android:text="Enter the name:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
